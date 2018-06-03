@@ -6,6 +6,4 @@
 -[ ] Generate gnuplot of spectrum
 -[ ] Animation of sample
 
----
-
 ![](spectrum.png)
