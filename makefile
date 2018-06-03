@@ -12,4 +12,4 @@ all: spectrum.o
 	gnuplot fourier.config
 
 clean:
-	rm -f *.o
+	rm -f *.o *.gcda *.gcno

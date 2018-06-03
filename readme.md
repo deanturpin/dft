@@ -7,7 +7,7 @@
 - Animation of sample
 
 # Samples
-![](spectrum.svg)
+![](samples.svg)
 
 # Fourier
 ![](fourier.svg)
