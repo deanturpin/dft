@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/deanturpin/spectrum_analyser_gnuplot/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/spectrum_analyser_gnuplot)
 
 A Fourier transform implementation using no third-party libraries. Written to
-analyse the spectral response of my digeridoo. Hear the [audio](recording.wav).
+analyse the spectral response of my digeridoo. Listen to the [audio](recording.wav).
 
 - Read WAV
 - Spectral analysis for whole sample
