@@ -1,10 +1,3 @@
-// #include "fourier.h"
-// #include "notes.h"
-// #include "riff.h"
-// #include <algorithm>
-// #include <cmath>
-// #include <iostream>
-// #include <unistd.h>
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -36,26 +29,25 @@ int main() {
   }
 
   // Read header
-  std::cout << "read header\n";
   audio.read(reinterpret_cast<char *>(&h), sizeof h);
 
   // Read block of samples
-  std::cout << "read samples\n";
   std::vector<short> samples(30);
-  if (audio.good()) {
-    std::cout << "audio is good\n";
+  if (audio.good())
     audio.read(reinterpret_cast<char *>(samples.data()),
                samples.size() * sizeof(short));
-  } else
-    std::cout << "audio bad\n";
 
   // Convert samples to decimal
   for (auto &s : samples)
     s = ~(s - 1);
 
-  std::cout << "samples\n";
-  for (const auto &s : samples)
-    std::cout << static_cast<long>(s) << '\n';
+  std::ofstream spectrum("spectrum.csv");
+  if (spectrum.good()) {
+    for (const auto &s : samples)
+      spectrum << static_cast<long>(s) << ' ';
+    spectrum << '\n';
+  }
+
   /*
     try {
 

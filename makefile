@@ -6,13 +6,11 @@ DEBUG = -g --coverage
 %.o: %.cpp
 	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG) -c
 
-all: spectrum
-
-spectrum: spectrum.o fourier.o
-	$(CXX) -o $@ $^ $(DEBUG)
+all: spectrum.o
+	cat template.md > readme.md
+	TZ=BST-1 date >> readme.md
+	gnuplot gnuplot.config
+	echo '![](spectrum.png)' >> readme.md
 
 clean:
-	rm -f *.o spectrum
-
-noise: spectrum
-	arecord -q -f S16_LE -c1 -r 8000 | ./spectrum
+	rm -f *.o
