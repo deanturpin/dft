@@ -4,11 +4,12 @@ CCFLAGS = -std=c++14 --all-warnings --extra-warnings -pedantic-errors \
 DEBUG = -g --coverage
 
 %.o: %.cpp
-	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG) -c
+	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG)
 
 all: spectrum.o
 	cat template.md > readme.md
 	TZ=BST-1 date >> readme.md
+	./spectrum.o
 	gnuplot gnuplot.config
 	echo '![](spectrum.png)' >> readme.md
 

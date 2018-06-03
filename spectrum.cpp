@@ -32,7 +32,7 @@ int main() {
   audio.read(reinterpret_cast<char *>(&h), sizeof h);
 
   // Read block of samples
-  std::vector<short> samples(30);
+  std::vector<short> samples(4000);
   if (audio.good())
     audio.read(reinterpret_cast<char *>(samples.data()),
                samples.size() * sizeof(short));
@@ -41,12 +41,18 @@ int main() {
   for (auto &s : samples)
     s = ~(s - 1);
 
+  // Dump samples to a file for plotting
   std::ofstream spectrum("spectrum.csv");
   if (spectrum.good()) {
     for (const auto &s : samples)
-      spectrum << static_cast<long>(s) << ' ';
-    spectrum << '\n';
+      spectrum << static_cast<long>(s) << '\n';
   }
+
+  // Read results back out of file
+  // spectrum.close();
+  // std::ifstream dump("spectrum.csv");
+  // if (dump.good())
+  //   std::cout << dump.rdbuf();
 
   /*
     try {
