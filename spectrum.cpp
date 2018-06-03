@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <complex>
 #include <fstream>
 #include <iostream>
@@ -29,54 +28,57 @@ int main() {
   std::ifstream audio("recording.wav");
   if (audio.good()) {
 
+    // Initialise twiddle container
+    const unsigned long bins = 1000;
+    std::vector<std::complex<double>> twiddle;
+    twiddle.reserve(bins * bins);
+
+    // Create and populate twiddle matrix
+    using namespace std::complex_literals;
+    for (unsigned long k = 0; k < bins; ++k)
+      for (unsigned long n = 0; n < bins; ++n)
+        twiddle.push_back(exp(2i * M_PI * static_cast<double>(k) *
+                              static_cast<double>(n) /
+                              static_cast<double>(bins)));
+
     // Read header
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
 
-    // Read block of samples
-    std::vector<short> samples(1000);
-    if (audio.good())
-      audio.read(reinterpret_cast<char *>(samples.data()),
-                 samples.size() * sizeof(short));
+    std::vector<double> fourier(bins / 4);
+    std::vector<short> samples(bins);
 
-    // Convert samples to decimal
-    for (auto &s : samples)
-      s = ~(s - 1);
+    // Read complete blocks of samples until end of file
+    while (audio.read(reinterpret_cast<char *>(samples.data()),
+                      samples.size() * sizeof(short))) {
 
-    // Create and populate twiddle matrix
-    std::vector<std::complex<double>> twiddle;
-    using namespace std::complex_literals;
-    const unsigned long bins = 1000;
-    twiddle.reserve(bins * bins);
-    for (unsigned long k = 0; k < bins / 2; ++k)
-      for (unsigned long n = 0; n < bins; ++n)
-        twiddle.push_back(
-            exp(2i * M_PI * double(k) * double(n) / double(bins)));
+      // Convert samples to decimal (from 2's comp)
+      for (auto &samp : samples)
+        samp = ~(samp - 1);
 
-    // const auto &fou = fourier(samples);
-    std::vector<double> fou(bins / 2);
-    generate(fou.begin(), fou.end(),
-             [&twiddle, &samples, &bins, k = 0ul ]() mutable {
-               std::complex<double> sum;
-               for (unsigned long n = 0; n < bins; ++n)
-                 sum += twiddle[(k * bins) + n] *
-                        std::complex<double>(samples.at(n), 0);
+      // Calculate Fourier transform for batch of samples
+      unsigned long k = 0;
+      for (auto &f : fourier) {
 
-               ++k;
-               return abs(sum);
-             });
+        std::complex<double> sum;
+        for (unsigned long n = 0; n < bins; ++n)
+          sum +=
+              twiddle[(k * bins) + n] * std::complex<double>(samples.at(n), 0);
 
-    std::cout << fou.size() << " fourier bins\n";
+        ++k;
+        f += abs(sum);
+      }
+    }
 
     // Dump samples for plotting
     std::ofstream out1("samples.csv");
     if (out1.good())
-      for (const auto &s : samples)
-        out1 << static_cast<long>(s) << '\n';
+      for (const auto &samp : samples)
+        out1 << static_cast<long>(samp) << '\n';
 
     // Dump Fourier bins for plotting
     std::ofstream out2("fourier.csv");
     if (out2.good())
-      for (const auto &s : fou)
-        out2 << static_cast<long>(s) << '\n';
+      for (const auto &bin : fourier)
+        out2 << static_cast<long>(bin) << '\n';
   }
 }
