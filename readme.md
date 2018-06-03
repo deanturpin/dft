@@ -6,4 +6,8 @@
 - Generate gnuplot of spectrum
 - Animation of sample
 
-![](spectrum.png)
+# Samples
+![](spectrum.svg)
+
+# Fourier
+![](fourier.svg)

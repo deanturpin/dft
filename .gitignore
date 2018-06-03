@@ -1,5 +1,5 @@
 *.o
-spectrum
+*.csv
 *.swp
 *.gcno
 *.gcda

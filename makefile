@@ -8,7 +8,8 @@ DEBUG = -g --coverage
 
 all: spectrum.o
 	./$<
-	gnuplot gnuplot.config
+	gnuplot samples.config
+	gnuplot fourier.config
 
 clean:
 	rm -f *.o
