@@ -83,7 +83,7 @@ int main() {
     s = ~(s - 1);
 
   fourier_init();
-  const auto fou = fourier(samples);
+  const auto &fou = fourier(samples);
   std::cout << fou.size() << " fourier bins\n";
 
   // Dump samples to a file for plotting
