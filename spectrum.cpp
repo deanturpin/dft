@@ -43,12 +43,12 @@ int main() {
 
   wav_header header;
 
-  // Bins in our Fourier transform
-  const unsigned long bins = 1000;
-
   // Check audio file is good
   std::ifstream audio("recording.wav");
   if (audio.good()) {
+
+    // Bins in our Fourier transform
+    const unsigned long bins = 1000;
 
     // Initialise twiddle container
     std::vector<std::complex<double>> twiddle;
@@ -62,8 +62,9 @@ int main() {
                               static_cast<double>(n) /
                               static_cast<double>(bins)));
 
-    // Read header
+    // Read header and calculate bin resolution
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
+    const double fourier_bin_resolution = 1.0 * header.sample_rate / bins;
 
     std::vector<double> fourier(bins / 8);
     std::vector<short> samples(bins);
@@ -97,18 +98,19 @@ int main() {
     }
 
     // Dump Fourier bins for plotting
+    unsigned long iterations = 0;
     std::ofstream out2("fourier.csv");
     if (out2.good())
       for (const auto &bin : fourier)
-        out2 << bin << '\n';
+        out2 << fourier_bin_resolution * iterations++ << '\t' << bin << '\n';
 
+    iterations = 0;
     for (const auto &bin : fourier)
-      std::cout << bin << '\n';
-  }
+      std::cout << fourier_bin_resolution * iterations++ << '\t' << bin << '\n';
 
-  const double fourier_bin_resolution = 1.0 * header.sample_rate / bins;
-  std::cout << std::fixed << bins << " Fourier bins\n"
-            << header.sample_rate << " sample rate\n"
-            << fourier_bin_resolution << " Hz bin resolution\n";
-  std::cout << "WAV header\n" << header << '\n';
+    std::cout << std::fixed << bins << " Fourier bins\n"
+              << header.sample_rate << " Hz sample rate\n"
+              << fourier_bin_resolution << " Hz bin resolution\n";
+    std::cout << "WAV header\n" << header << '\n';
+  }
 }
