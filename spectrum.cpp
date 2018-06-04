@@ -3,33 +3,54 @@
 #include <iostream>
 #include <vector>
 
+// Structure of a WAV header, we're not actually reading any of the fields but
+// comments left for reference
+struct wav_header {
+  using word = unsigned int;
+  word riff_id;
+  word riff_size;
+  word wave_tag;
+  word format_id;
+  word format_size;
+  word format_tag : 16;
+  word channels : 16;
+  word sample_rate;
+  word bytes_per_second;
+  word block_align : 16;
+  word bit_depth : 16;
+  word data_id;
+  word data_size;
+
+  friend std::ostream &operator<<(std::ostream &os, const wav_header &header) {
+    return os << std::hex << header.riff_id << "\triff_id\n"
+              << header.riff_size << "\triff_size\n"
+              << header.wave_tag << "\twave_tag\n"
+              << std::dec << header.format_id << "\tformat_id\n"
+              << header.format_size << "\t\tformat_size\n"
+              << header.format_tag << "\t\tformat_tag\n"
+              << header.channels << "\t\tchannels\n"
+              << header.sample_rate << "\t\tHz sample_rate\n"
+              << header.bytes_per_second << "\t\tbytes_per_second\n"
+              << header.block_align << "\t\tblock_align\n"
+              << header.bit_depth << "\t\tbit_depth\n"
+              << std::hex << header.data_id << "\tdata_id\n"
+              << header.data_size << "\tdata_size\n"
+              << std::dec;
+  };
+};
+
 int main() {
 
-  // Structure of a WAV header, we're not actually reading any of the fields but
-  // comments left for reference
-  struct wav_header {
-    using word = unsigned long;
-    word : 32; // riff_id
-    word : 32; // riff_size
-    word : 32; // wave_tag
-    word : 32; // format_id
-    word : 32; // format_size
-    word : 16; // format_tag
-    word : 16; // channels
-    word : 32; // sample_rate
-    word : 32; // bytes_per_second
-    word : 16; // block_align
-    word : 16; // bit_depth
-    word : 32; // data_id
-    word : 32; // data_size
-  } header;
+  wav_header header;
+
+  // Bins in our Fourier transform
+  const unsigned long bins = 1000;
 
   // Check audio file is good
   std::ifstream audio("recording.wav");
   if (audio.good()) {
 
     // Initialise twiddle container
-    const unsigned long bins = 1000;
     std::vector<std::complex<double>> twiddle;
     twiddle.reserve(bins * bins);
 
@@ -67,13 +88,13 @@ int main() {
         ++k;
         f += abs(sum);
       }
-    }
 
-    // Dump samples for plotting
-    std::ofstream out1("samples.csv");
-    if (out1.good())
-      for (const auto &samp : samples)
-        out1 << static_cast<long>(samp) << '\n';
+      // Dump samples for plotting
+      std::ofstream out1("samples.csv", std::fstream::app);
+      if (out1.good())
+        for (const auto &samp : samples)
+          out1 << static_cast<long>(samp) << '\n';
+    }
 
     // Dump Fourier bins for plotting
     std::ofstream out2("fourier.csv");
@@ -81,4 +102,11 @@ int main() {
       for (const auto &bin : fourier)
         out2 << static_cast<long>(bin) << '\n';
   }
+
+  const double resolution = 1.0 * header.sample_rate / bins;
+
+  std::cout << std::fixed << bins << " Fourier bins\n"
+            << header.sample_rate << " sample rate\n"
+            << resolution << " Hz bin resolution\n";
+  std::cout << "WAV header\n" << header << '\n';
 }
