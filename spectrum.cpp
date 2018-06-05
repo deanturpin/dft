@@ -66,7 +66,7 @@ int main() {
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
     const double fourier_bin_resolution = 1.0 * header.sample_rate / bins;
 
-    std::vector<double> fourier(bins / 8);
+    std::vector<double> fourier(bins / 10);
     std::vector<short> samples(bins);
 
     // Read complete blocks of samples until end of file
@@ -91,22 +91,17 @@ int main() {
       }
 
       // Dump samples for plotting (appended to previous iteration results)
-      std::ofstream out1("samples.csv", std::fstream::app);
-      if (out1.good())
+      std::ofstream samples_file("samples.csv", std::fstream::app);
+      if (samples_file.good())
         for (const auto &samp : samples)
-          out1 << samp << '\n';
+          samples_file << samp << '\n';
     }
 
     // Dump Fourier bins for plotting
-    unsigned long iterations = 0;
-    std::ofstream out2("fourier.csv");
-    if (out2.good())
+    std::ofstream fourier_file("fourier.csv");
+    if (fourier_file.good())
       for (const auto &bin : fourier)
-        out2 << fourier_bin_resolution * iterations++ << '\t' << bin << '\n';
-
-    iterations = 0;
-    for (const auto &bin : fourier)
-      std::cout << fourier_bin_resolution * iterations++ << '\t' << bin << '\n';
+        fourier_file << bin << '\n';
 
     std::cout << std::fixed << bins << " Fourier bins\n"
               << header.sample_rate << " Hz sample rate\n"
