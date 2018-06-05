@@ -4,12 +4,18 @@
 A Fourier transform implementation using no third-party libraries. Written to
 analyse the spectral response of my digeridoo. Listen to the [audio](recording.wav).
 
+Samples recorded on my laptop with ```arecord```.
+```bash
+arecord -q -f S16_LE -c1 -r 8000 > recording.wav
+```
+
 # Samples
 ![](samples.svg)
 
 # Fourier
 [![](fourier.svg)](fourier.svg)
 
+# Concert pitch
 ```
 16.35	C0
 17.32	C#0
