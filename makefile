@@ -7,7 +7,7 @@ DEBUG = -pg -g --coverage -O3
 	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG)
 
 all: spectrum.o
-	./$<
+	time ./$<
 	gnuplot samples.config
 	gnuplot fourier.config
 

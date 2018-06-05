@@ -27,4 +27,3 @@ matrix:
             - g++-6
             - cppcheck
             - gnuplot
-            - gprof
