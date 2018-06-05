@@ -4,6 +4,7 @@ script:
   - make CXX=g++-6
   - cppcheck --enable=all .
   - bash <(curl -s https://codecov.io/bash)
+  - gprof ./spectrum.o
 
 deploy:
   provider: pages
@@ -26,3 +27,4 @@ matrix:
             - g++-6
             - cppcheck
             - gnuplot
+            - gprof
