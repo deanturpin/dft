@@ -8,8 +8,6 @@ analyse the spectral response of my digeridoo. Listen to the [audio](recording.w
 ![](samples.svg)
 
 # Fourier
-8 Hz bin resolution.
-
 ![](fourier.svg)
 
 ```

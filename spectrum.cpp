@@ -48,7 +48,7 @@ int main() {
   if (audio.good()) {
 
     // Bins in our Fourier transform
-    const unsigned long bins = 1000;
+    const unsigned long bins = 8000;
 
     // Initialise twiddle container
     std::vector<std::complex<double>> twiddle;
@@ -66,10 +66,11 @@ int main() {
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
     const double fourier_bin_resolution = 1.0 * header.sample_rate / bins;
 
+    // We're only interested in the lower end of the Fourier results
     std::vector<double> fourier(bins / 10);
-    std::vector<short> samples(bins);
 
     // Read complete blocks of samples until end of file
+    std::vector<short> samples(bins);
     while (audio.read(reinterpret_cast<char *>(samples.data()),
                       samples.size() * sizeof(short))) {
 
