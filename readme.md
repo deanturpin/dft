@@ -8,7 +8,7 @@ analyse the spectral response of my digeridoo. Listen to the [audio](recording.w
 ![](samples.svg)
 
 # Fourier
-![](fourier.svg)
+[![](fourier.svg)](fourier.svg)
 
 ```
 16.35	C0
