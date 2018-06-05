@@ -9,10 +9,11 @@ Samples recorded on my laptop with ```arecord```.
 arecord -q -f S16_LE -c1 -r 8000 > recording.wav
 ```
 
-# Samples
-![](samples.svg)
+# Baby grand piano
+[![](piano.svg)](piano.svg)
 
-# Fourier
+# Didgeridoo
+![](samples.svg)
 [![](fourier.svg)](fourier.svg)
 
 # Concert pitch
