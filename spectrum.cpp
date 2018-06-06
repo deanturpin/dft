@@ -52,7 +52,7 @@ int main(int count, char *argv[]) {
   if (audio.good()) {
 
     // Bins in our Fourier transform
-    const unsigned long bins = 1000;
+    const unsigned long bins = 8000;
 
     // Initialise twiddle container
     std::vector<std::complex<double>> twiddle;
