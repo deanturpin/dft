@@ -15,7 +15,7 @@ all: readme.md
 
 gnuplot = $(addsuffix .gnuplot, $(basename $<))
 %.gnuplot: %.csv
-	echo set terminal svg size 1024,640 > $(gnuplot)
+	echo set terminal svg size 2000,1000 > $(gnuplot)
 	echo set output \"$(basename $<).svg\" >> $(gnuplot)
 	echo set xtics 10 >> $(gnuplot)
 	echo set xtics rotate >> $(gnuplot)
