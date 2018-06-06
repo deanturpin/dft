@@ -1,4 +1,3 @@
-# Concert pitch
 ```
 16.35	C0
 17.32	C#0
