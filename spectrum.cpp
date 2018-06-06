@@ -39,12 +39,16 @@ struct wav_header {
   };
 };
 
-int main() {
+int main(int count, char *argv[]) {
 
   wav_header header;
 
+  // Check if audio file passed as a param or use default
+  const std::string audio_file =
+      (count == 2 ? argv[1] : "wav/didgeridoo_big_tony.wav");
+
   // Check audio file is good
-  std::ifstream audio("recording.wav");
+  std::ifstream audio(audio_file);
   if (audio.good()) {
 
     // Bins in our Fourier transform
@@ -64,10 +68,9 @@ int main() {
 
     // Read header and calculate bin resolution
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
-    const double fourier_bin_resolution = 1.0 * header.sample_rate / bins;
 
     // We're only interested in the lower end of the Fourier results
-    std::vector<double> fourier(bins / 10);
+    std::vector<double> fourier(bins / 6);
 
     // Read complete blocks of samples until end of file
     std::vector<short> samples(bins);
@@ -90,23 +93,10 @@ int main() {
         ++k;
         f += abs(sum);
       }
-
-      // Dump samples for plotting (appended to previous iteration results)
-      std::ofstream samples_file("samples.csv", std::fstream::app);
-      if (samples_file.good())
-        for (const auto &samp : samples)
-          samples_file << samp << '\n';
     }
 
     // Dump Fourier bins for plotting
-    std::ofstream fourier_file("fourier.csv");
-    if (fourier_file.good())
-      for (const auto &bin : fourier)
-        fourier_file << bin << '\n';
-
-    std::cout << std::fixed << bins << " Fourier bins\n"
-              << header.sample_rate << " Hz sample rate\n"
-              << fourier_bin_resolution << " Hz bin resolution\n";
-    std::cout << "WAV header\n" << header << '\n';
+    for (const auto &bin : fourier)
+      std::cout << bin << '\n';
   }
 }
