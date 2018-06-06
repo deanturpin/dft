@@ -31,4 +31,4 @@ readme.md: $(svgs)
 	./create_readme.sh > $@
 
 clean:
-	rm -f *.o *.gcda *.gcno *.csv *.svg *.gnuplot readme.md
+	rm -f *.o *.gcda *.gcno *.svg readme.md
