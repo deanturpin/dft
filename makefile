@@ -8,14 +8,28 @@ DEBUG = -pg -g --coverage -O3
 
 svgs = $(addprefix svg/, $(addsuffix .svg, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file))))))
 
+gnuplots = $(addsuffix .gnuplot, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
+
 all: $(svgs)
 
 %.csv: wav/%.wav spectrum.o
 	@echo $< to $@
 	./spectrum.o > $@
-	touch $@
 
-svg/%.svg: %.csv
+# gnuplot = $(addsuffix .gnuplot, $(basename $<))
+%.gnuplot: %.csv
+	@echo $< to $(basename $@).gnuplot
+
+# @echo set terminal svg size 1024,640 > $(gnuplot)
+# set output "fourier.svg" > $(gnuplot)
+# set xtics 10 > $(gnuplot)
+# set xtics rotate > $(gnuplot)
+# set xlabel "Hz" > $(gnuplot)
+# set grid xtics ytics > $(gnuplot)
+# set tics font "Helvetica,8" > $(gnuplot)
+# plot "fourier.csv" notitle with impulses > $(gnuplot)
+
+svg/%.svg: %.csv %.gnuplot
 	@echo $< to $@
 
 # all: spectrum.o
@@ -23,4 +37,4 @@ svg/%.svg: %.csv
 # 	gnuplot fourier.config
 
 clean:
-	rm -f *.o *.gcda *.gcno *.csv
+	rm -f *.o *.gcda *.gcno *.csv *.svg *.gnuplot
