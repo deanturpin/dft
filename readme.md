@@ -13,10 +13,13 @@ See the [pitch details](pitch.md).
 
 ---
 
-Wed  6 Jun 19:02:02 BST 2018
+Wed  6 Jun 20:38:57 BST 2018
 # didgeridoo_big_tony.wav
 Listen to the [audio](wav/didgeridoo_big_tony.wav).
 [![](didgeridoo_big_tony.svg)](didgeridoo_big_tony.svg)
+# major7_fractional_freqs.wav
+Listen to the [audio](wav/major7_fractional_freqs.wav).
+[![](major7_fractional_freqs.svg)](major7_fractional_freqs.svg)
 # major7.wav
 Listen to the [audio](wav/major7.wav).
 [![](major7.svg)](major7.svg)
