@@ -17,6 +17,7 @@ gnuplot = $(addsuffix .gnuplot, $(basename $<))
 %.gnuplot: %.csv
 	echo set terminal svg size 2000,1000 > $(gnuplot)
 	echo set output \"$(basename $<).svg\" >> $(gnuplot)
+	echo unset ytics >> $(gnuplot)
 	echo set xtics 10 >> $(gnuplot)
 	echo set xtics rotate >> $(gnuplot)
 	echo set xlabel \"Hz\" >> $(gnuplot)
