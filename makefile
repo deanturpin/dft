@@ -8,7 +8,7 @@ DEBUG = -pg -g --coverage -O3
 
 svgs = $(addsuffix .svg, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
 
-all: $(svgs)
+all: readme.md
 
 %.csv: wav/%.wav spectrum.o
 	./spectrum.o $< > $@
@@ -27,5 +27,8 @@ gnuplot = $(addsuffix .gnuplot, $(basename $<))
 %.svg: %.gnuplot %.csv
 	gnuplot $<
 
+readme.md: $(svgs)
+	./create_readme.sh > $@
+
 clean:
-	rm -f *.o *.gcda *.gcno *.csv *.svg *.gnuplot
+	rm -f *.o *.gcda *.gcno *.csv *.svg *.gnuplot readme.md
