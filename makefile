@@ -6,10 +6,21 @@ DEBUG = -pg -g --coverage -O3
 %.o: %.cpp
 	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG)
 
-all: spectrum.o
-	time ./$<
-	gnuplot samples.config
-	gnuplot fourier.config
+svgs = $(addprefix svg/, $(addsuffix .svg, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file))))))
+
+all: $(svgs)
+
+%.csv: wav/%.wav spectrum.o
+	@echo $< to $@
+	./spectrum.o > $@
+	touch $@
+
+svg/%.svg: %.csv
+	@echo $< to $@
+
+# all: spectrum.o
+# 	time ./$<
+# 	gnuplot fourier.config
 
 clean:
 	rm -f *.o *.gcda *.gcno *.csv

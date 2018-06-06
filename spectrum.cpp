@@ -39,16 +39,20 @@ struct wav_header {
   };
 };
 
-int main() {
+int main(int count, char *argv[]) {
 
   wav_header header;
 
+  // Check if audio file passed as a param or use default
+  const std::string audio_file =
+      (count == 2 ? argv[1] : "wav/didgeridoo_big_tony.wav");
+
   // Check audio file is good
-  std::ifstream audio("recording.wav");
+  std::ifstream audio(audio_file);
   if (audio.good()) {
 
     // Bins in our Fourier transform
-    const unsigned long bins = 8000;
+    const unsigned long bins = 1000;
 
     // Initialise twiddle container
     std::vector<std::complex<double>> twiddle;
@@ -99,14 +103,16 @@ int main() {
     }
 
     // Dump Fourier bins for plotting
-    std::ofstream fourier_file("fourier.csv");
-    if (fourier_file.good())
-      for (const auto &bin : fourier)
-        fourier_file << bin << '\n';
+    // std::ofstream fourier_file("fourier.csv");
+    // if (fourier_file.good())
+    //   for (const auto &bin : fourier)
+    // fourier_file << bin << '\n';
+    for (const auto &bin : fourier)
+      std::cout << bin << '\n';
 
-    std::cout << std::fixed << bins << " Fourier bins\n"
-              << header.sample_rate << " Hz sample rate\n"
-              << fourier_bin_resolution << " Hz bin resolution\n";
-    std::cout << "WAV header\n" << header << '\n';
+    // std::cout << std::fixed << bins << " Fourier bins\n"
+    //           << header.sample_rate << " Hz sample rate\n"
+    //           << fourier_bin_resolution << " Hz bin resolution\n";
+    // std::cout << "WAV header\n" << header << '\n';
   }
 }
