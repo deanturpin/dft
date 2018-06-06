@@ -71,7 +71,7 @@ int main(int count, char *argv[]) {
     const double fourier_bin_resolution = 1.0 * header.sample_rate / bins;
 
     // We're only interested in the lower end of the Fourier results
-    std::vector<double> fourier(bins / 10);
+    std::vector<double> fourier(bins / 6);
 
     // Read complete blocks of samples until end of file
     std::vector<short> samples(bins);
@@ -96,10 +96,10 @@ int main(int count, char *argv[]) {
       }
 
       // Dump samples for plotting (appended to previous iteration results)
-      std::ofstream samples_file("samples.csv", std::fstream::app);
-      if (samples_file.good())
-        for (const auto &samp : samples)
-          samples_file << samp << '\n';
+      // std::ofstream samples_file(sample_file, std::fstream::app);VV
+      // if (samples_file.good())
+      //   for (const auto &samp : samples)
+      //     samples_file << samp << '\n';
     }
 
     // Dump Fourier bins for plotting

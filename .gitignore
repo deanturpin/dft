@@ -1,5 +1,3 @@
-*.o
-*.csv
 *.swp
 *.gcno
 *.gcda

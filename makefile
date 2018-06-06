@@ -8,8 +8,6 @@ DEBUG = -pg -g --coverage -O3
 
 svgs = $(addsuffix .svg, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
 
-# gnuplots = $(addsuffix .gnuplot, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
-
 all: $(svgs)
 
 %.csv: wav/%.wav spectrum.o
