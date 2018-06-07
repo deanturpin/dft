@@ -25,7 +25,7 @@ gnuplot = $(addsuffix .gnuplot, $(basename $<))
 	echo set xtics rotate >> $(gnuplot)
 	echo set xlabel \"Hz\" >> $(gnuplot)
 	echo set grid xtics ytics >> $(gnuplot)
-	echo set tics font \"Helvetica,4\" >> $(gnuplot)
+	echo set tics font \"Helvetica,3\" >> $(gnuplot)
 	echo plot \"$<\" notitle with impulses >> $(gnuplot)
 
 %.svg: %.gnuplot %.csv
