@@ -8,21 +8,24 @@ DEBUG = -pg -g --coverage -O3
 
 svgs = $(addsuffix .svg, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
 
-all: readme.md
+all: all_svgs readme.md
+
+all_svgs:
+	make --jobs $(shell nproc) $(svgs)
 
 %.csv: wav/%.wav spectrum.o
 	./spectrum.o $< > $@
 
 gnuplot = $(addsuffix .gnuplot, $(basename $<))
 %.gnuplot: %.csv
-	echo set terminal svg size 2000,1000 > $(gnuplot)
+	echo set terminal svg size 1500,900 > $(gnuplot)
 	echo set output \"$(basename $<).svg\" >> $(gnuplot)
-	echo unset ytics >> $(gnuplot)
+	echo set format y \"\" >> $(gnuplot)
 	echo set xtics 10 >> $(gnuplot)
 	echo set xtics rotate >> $(gnuplot)
 	echo set xlabel \"Hz\" >> $(gnuplot)
 	echo set grid xtics ytics >> $(gnuplot)
-	echo set tics font \"Helvetica,8\" >> $(gnuplot)
+	echo set tics font \"Helvetica,4\" >> $(gnuplot)
 	echo plot \"$<\" notitle with impulses >> $(gnuplot)
 
 %.svg: %.gnuplot %.csv
