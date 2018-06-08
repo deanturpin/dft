@@ -6,15 +6,28 @@ DEBUG = -pg -g --coverage -O3
 %.o: %.cpp
 	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG)
 
+# Full range SVGs
 svgs = $(addsuffix .svg, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
 
-all: all_svgs readme.md
+csv = $(addsuffix .csv, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
+csv += $(addsuffix _zoom.csv, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
 
-all_svgs:
-	make --jobs $(shell nproc) $(svgs)
+svgs = $(addsuffix .svg, $(basename $(foreach file, $(wildcard *.gnuplot), $(notdir $(file)))))
+
+gnuplots = $(addsuffix .gnuplot, $(basename $(foreach file, $(wildcard *.csv), $(notdir $(file)))))
+
+all_csv:
+	$(MAKE) --jobs $(shell nproc) $(csv)
+
+all: $(csv)
+	# $(MAKE) --jobs $(shell nproc) $(gnuplots)
+	# $(MAKE) --jobs $(shell nproc) $(svgs)
+
+all_csvs: $(CSVs)
 
 %.csv: wav/%.wav spectrum.o
 	./spectrum.o $< > $@
+	./spectrum.o $< 16 > $(basename $@)_zoom.csv
 
 gnuplot = $(addsuffix .gnuplot, $(basename $<))
 %.gnuplot: %.csv
@@ -25,7 +38,7 @@ gnuplot = $(addsuffix .gnuplot, $(basename $<))
 	echo set xtics rotate >> $(gnuplot)
 	echo set xlabel \"Hz\" >> $(gnuplot)
 	echo set grid xtics ytics >> $(gnuplot)
-	echo set tics font \"Helvetica,3\" >> $(gnuplot)
+	echo set tics font \"Helvetica,10\" >> $(gnuplot)
 	echo plot \"$<\" notitle with impulses >> $(gnuplot)
 
 %.svg: %.gnuplot %.csv
@@ -35,4 +48,4 @@ readme.md: $(svgs)
 	./create_readme.sh > $@
 
 clean:
-	rm -f *.o *.gcda *.gcno *.svg readme.md
+	rm -f *.o *.gcda *.gcno *.svg *.csv readme.md

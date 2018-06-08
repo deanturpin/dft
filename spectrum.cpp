@@ -47,7 +47,7 @@ int main(int count, char *argv[]) {
   const std::string audio_file =
       (count == 2 ? argv[1] : "wav/didgeridoo_big_tony.wav");
 
-  const unsigned long zoom = (count == 3 ? atoi(argv[1]) : 2);
+  const unsigned long zoom = (count == 3 ? atoi(argv[2]) : 2);
 
   // Check audio file is good
   std::ifstream audio(audio_file);

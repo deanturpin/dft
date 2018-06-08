@@ -1,5 +1,9 @@
 ku
 
+Looking at the largest peaks starting on the left: I'd say it's just shy of
+concert pitch E, with two E octaves and a B 5th. There's also a smidgen of high
+G. Energy also extends into the higher frequencies. A sparkler?
+
 ```
 81 Hz   fundamental
 --
@@ -27,3 +31,11 @@ ku
 415.30  G#4
 
 ```
+
+Jennifer_Fenton.svg
+
+Peaks at: 81, 162, 243, 324 Hz.
+
+A strong fundamental at 81 Hz, just flat of E2.
+Textbook first harmonic (octave) followed by a near perfect 5th (B3) and a
+strong second octave. High frequency sparkle extends out as far as 1940 Hz.
