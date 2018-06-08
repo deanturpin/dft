@@ -8,13 +8,14 @@ echo
 for svg in *.svg; do
 
   # Reconstruct WAV
-  wav=wav/${svg%.*}.wav
+  title=wav/${svg%.*}
+  wav=$title.wav
   wav=${wav/_zoom/}
   wav=${wav/_full/}
   markdown=${wav%.*}.md
 
   # Print section header
-  echo "# ${wav#*/}"
+  echo "# ${title//_/ }"
 
   # Print info if there is any
   [[ -e $markdown ]] && cat $markdown
