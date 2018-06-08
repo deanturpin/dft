@@ -3,6 +3,8 @@ CCFLAGS = -std=c++14 --all-warnings --extra-warnings -pedantic-errors \
 	 -Wshadow -Wfloat-equal -Weffc++ -Wdelete-non-virtual-dtor
 DEBUG = -pg -g --coverage -O3
 
+.PRECIOUS: spectrum.o
+
 %.o: %.cpp
 	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG)
 
@@ -10,42 +12,53 @@ DEBUG = -pg -g --coverage -O3
 svgs = $(addsuffix .svg, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
 
 csv = $(addsuffix .csv, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
-csv += $(addsuffix _zoom.csv, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
+csv_zoom = $(addsuffix _zoom.csv, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
+gnuplot = $(patsubst %.csv, %.gnuplot, $(wildcard *.csv))
+svg = $(patsubst %.gnuplot, %.svg, $(wildcard *.gnuplot))
 
-svgs = $(addsuffix .svg, $(basename $(foreach file, $(wildcard *.gnuplot), $(notdir $(file)))))
+JOBS := --jobs $(shell nproc)
 
-gnuplots = $(addsuffix .gnuplot, $(basename $(foreach file, $(wildcard *.csv), $(notdir $(file)))))
-
-all_csv:
-	$(MAKE) --jobs $(shell nproc) $(csv)
-
-all: $(csv)
-	# $(MAKE) --jobs $(shell nproc) $(gnuplots)
-	# $(MAKE) --jobs $(shell nproc) $(svgs)
-
-all_csvs: $(CSVs)
+all:
+	$(MAKE) $(JOBS) $(csv) $(csv_zoom)
+	$(MAKE) $(gnuplot)
+	$(MAKE) $(svg)
+	# $(MAKE) readme.md
 
 %.csv: wav/%.wav spectrum.o
 	./spectrum.o $< > $@
-	./spectrum.o $< 16 > $(basename $@)_zoom.csv
 
-gnuplot = $(addsuffix .gnuplot, $(basename $<))
-%.gnuplot: %.csv
-	echo set terminal svg size 1500,900 > $(gnuplot)
-	echo set output \"$(basename $<).svg\" >> $(gnuplot)
-	echo set format y \"\" >> $(gnuplot)
-	echo set xtics 10 >> $(gnuplot)
-	echo set xtics rotate >> $(gnuplot)
-	echo set xlabel \"Hz\" >> $(gnuplot)
-	echo set grid xtics ytics >> $(gnuplot)
-	echo set tics font \"Helvetica,10\" >> $(gnuplot)
-	echo plot \"$<\" notitle with impulses >> $(gnuplot)
-
-%.svg: %.gnuplot %.csv
+#######
+%_full.svg: %_full.gnuplot
 	gnuplot $<
 
-readme.md: $(svgs)
+%_full.gnuplot: %_full.csv
+	./create_gnuplot_config.sh $(basename $<) > $@
+
+%_full.csv: wav/%.wav spectrum.o
+	./spectrum.o $< > $@
+
+%_zoom.svg: %_zoom.gnuplot
+	gnuplot $<
+
+%_zoom.gnuplot: %_zoom.csv
+	./create_gnuplot_config.sh $(basename $<) > $@
+
+%_zoom.csv: wav/%.wav spectrum.o
+	./spectrum.o $< 16 > $@
+
+#######
+
+# %_zoom.csv: wav/%.wav spectrum.o
+# 	./spectrum.o $< 16 > $@
+# 
+# %.gnuplot: %.csv
+# 	./create_gnuplot_config.sh $(basename $<) > $@
+# 
+# %.svg: %.gnuplot %.csv
+# 	gnuplot $<
+
+readme.md:
 	./create_readme.sh > $@
 
 clean:
-	rm -f *.o *.gcda *.gcno *.svg *.csv readme.md
+	rm -f *.o *.gcda *.gcno *.svg *.csv readme.md *.gnuplot
