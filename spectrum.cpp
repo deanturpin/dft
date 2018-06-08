@@ -45,9 +45,9 @@ int main(int count, char *argv[]) {
 
   // Check if audio file passed as a param or use default
   const std::string audio_file =
-      (count == 2 ? argv[1] : "wav/didgeridoo_big_tony.wav");
+      (count > 1 ? argv[1] : "wav/didgeridoo_big_tony.wav");
 
-  const unsigned long zoom = (count == 3 ? atoi(argv[2]) : 2);
+  const unsigned long zoom = (count > 2 ? atoi(argv[2]) : 2);
 
   // Check audio file is good
   std::ifstream audio(audio_file);
@@ -73,6 +73,7 @@ int main(int count, char *argv[]) {
 
     // We're only interested in the lower end of the Fourier results
     std::vector<double> fourier(bins / zoom);
+    std::cout << fourier.size() << " bins\n";
 
     // Read complete blocks of samples until end of file
     std::vector<short> samples(bins);
