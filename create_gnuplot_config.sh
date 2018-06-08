@@ -9,6 +9,6 @@ echo set xtics 10
 echo set xtics rotate
 echo set xlabel \"Hz\"
 echo set grid xtics ytics
-echo set tics font \"Helvetica,10\"
+echo set tics font \"Helvetica,3\"
 echo plot \"$name.csv\" notitle with impulses
 echo

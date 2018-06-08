@@ -72,7 +72,7 @@ int main(int count, char *argv[]) {
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
 
     // We're only interested in the lower end of the Fourier results
-    std::vector<double> fourier(bins / zoom);
+    std::vector<double> fourier(bins / zoom < 1 ? 1 : zoom);
     std::cout << fourier.size() << " bins\n";
 
     // Read complete blocks of samples until end of file
