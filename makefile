@@ -7,7 +7,7 @@ DEBUG = -pg -g --coverage -O3
 	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG)
 
 all:
-	$(MAKE) $(JOBS) $(svg_full) $(svg_zoom)
+	$(MAKE) --jobs $(shell nproc) $(svg_full) $(svg_zoom)
 	$(MAKE) readme.md
 
 svg_full = $(addsuffix _full.svg, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
