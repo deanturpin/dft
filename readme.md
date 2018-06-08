@@ -12,28 +12,64 @@ See the [pitch table](pitch.md) for concert pitch frequencies.
 
 ---
 
-Thu  7 Jun 07:17:35 BST 2018
-# didgeridoo_big_tony.wav
-Listen to the [audio](wav/didgeridoo_big_tony.wav).
-[![](didgeridoo_big_tony.svg)](didgeridoo_big_tony.svg)
-# didgeridoo_big_tony_toot.wav
-Listen to the [audio](wav/didgeridoo_big_tony_toot.wav).
-[![](didgeridoo_big_tony_toot.svg)](didgeridoo_big_tony_toot.svg)
-# guitar_open_a.wav
-Listen to the [audio](wav/guitar_open_a.wav).
-[![](guitar_open_a.svg)](guitar_open_a.svg)
-# guitar_open_e.wav
-Listen to the [audio](wav/guitar_open_e.wav).
-[![](guitar_open_e.svg)](guitar_open_e.svg)
-# major7_fractional_freqs.wav
-Listen to the [audio](wav/major7_fractional_freqs.wav).
-[![](major7_fractional_freqs.svg)](major7_fractional_freqs.svg)
-# major7_precise_freqs.wav
-Listen to the [audio](wav/major7_precise_freqs.wav).
-[![](major7_precise_freqs.svg)](major7_precise_freqs.svg)
-# piano2.wav
-Listen to the [audio](wav/piano2.wav).
-[![](piano2.svg)](piano2.svg)
-# piano.wav
-Listen to the [audio](wav/piano.wav).
-[![](piano.svg)](piano.svg)
+Fri  8 Jun 18:21:39 BST 2018
+# didgeridoo_big_tony_full.wav
+Listen to the [audio](wav/didgeridoo_big_tony_full.wav).
+[![](didgeridoo_big_tony_full.svg)](didgeridoo_big_tony_full.svg)
+# didgeridoo_big_tony_toot_full.wav
+Listen to the [audio](wav/didgeridoo_big_tony_toot_full.wav).
+[![](didgeridoo_big_tony_toot_full.svg)](didgeridoo_big_tony_toot_full.svg)
+# didgeridoo_big_tony_toot_zoom.wav
+Listen to the [audio](wav/didgeridoo_big_tony_toot_zoom.wav).
+[![](didgeridoo_big_tony_toot_zoom.svg)](didgeridoo_big_tony_toot_zoom.svg)
+# didgeridoo_big_tony_zoom.wav
+Listen to the [audio](wav/didgeridoo_big_tony_zoom.wav).
+[![](didgeridoo_big_tony_zoom.svg)](didgeridoo_big_tony_zoom.svg)
+# guitar_open_a_full.wav
+Listen to the [audio](wav/guitar_open_a_full.wav).
+[![](guitar_open_a_full.svg)](guitar_open_a_full.svg)
+# guitar_open_a_zoom.wav
+Listen to the [audio](wav/guitar_open_a_zoom.wav).
+[![](guitar_open_a_zoom.svg)](guitar_open_a_zoom.svg)
+# guitar_open_e_full.wav
+Listen to the [audio](wav/guitar_open_e_full.wav).
+[![](guitar_open_e_full.svg)](guitar_open_e_full.svg)
+# guitar_open_e_zoom.wav
+Listen to the [audio](wav/guitar_open_e_zoom.wav).
+[![](guitar_open_e_zoom.svg)](guitar_open_e_zoom.svg)
+# JF_fibreglass_slide_full.wav
+Listen to the [audio](wav/JF_fibreglass_slide_full.wav).
+[![](JF_fibreglass_slide_full.svg)](JF_fibreglass_slide_full.svg)
+# JF_fibreglass_slide_zoom.wav
+Listen to the [audio](wav/JF_fibreglass_slide_zoom.wav).
+[![](JF_fibreglass_slide_zoom.svg)](JF_fibreglass_slide_zoom.svg)
+# KP_guest_full.wav
+Listen to the [audio](wav/KP_guest_full.wav).
+[![](KP_guest_full.svg)](KP_guest_full.svg)
+# KP_guest_zoom.wav
+Listen to the [audio](wav/KP_guest_zoom.wav).
+[![](KP_guest_zoom.svg)](KP_guest_zoom.svg)
+# major7_fractional_freqs_full.wav
+Listen to the [audio](wav/major7_fractional_freqs_full.wav).
+[![](major7_fractional_freqs_full.svg)](major7_fractional_freqs_full.svg)
+# major7_fractional_freqs_zoom.wav
+Listen to the [audio](wav/major7_fractional_freqs_zoom.wav).
+[![](major7_fractional_freqs_zoom.svg)](major7_fractional_freqs_zoom.svg)
+# major7_precise_freqs_full.wav
+Listen to the [audio](wav/major7_precise_freqs_full.wav).
+[![](major7_precise_freqs_full.svg)](major7_precise_freqs_full.svg)
+# major7_precise_freqs_zoom.wav
+Listen to the [audio](wav/major7_precise_freqs_zoom.wav).
+[![](major7_precise_freqs_zoom.svg)](major7_precise_freqs_zoom.svg)
+# piano2_full.wav
+Listen to the [audio](wav/piano2_full.wav).
+[![](piano2_full.svg)](piano2_full.svg)
+# piano2_zoom.wav
+Listen to the [audio](wav/piano2_zoom.wav).
+[![](piano2_zoom.svg)](piano2_zoom.svg)
+# piano_full.wav
+Listen to the [audio](wav/piano_full.wav).
+[![](piano_full.svg)](piano_full.svg)
+# piano_zoom.wav
+Listen to the [audio](wav/piano_zoom.wav).
+[![](piano_zoom.svg)](piano_zoom.svg)

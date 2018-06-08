@@ -6,32 +6,39 @@ DEBUG = -pg -g --coverage -O3
 %.o: %.cpp
 	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG)
 
-svgs = $(addsuffix .svg, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
+all:
+	$(MAKE) --jobs $(shell nproc) $(svg_full) $(svg_zoom)
+	$(MAKE) readme.md
 
-all: all_svgs readme.md
+svg_full = $(addsuffix _full.svg, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
 
-all_svgs:
-	make --jobs $(shell nproc) $(svgs)
+svg_zoom = $(addsuffix _zoom.svg, $(basename $(foreach file, $(wildcard wav/*.wav), $(notdir $(file)))))
 
+
+# Full resolution rules
 %.csv: wav/%.wav spectrum.o
 	./spectrum.o $< > $@
 
-gnuplot = $(addsuffix .gnuplot, $(basename $<))
-%.gnuplot: %.csv
-	echo set terminal svg size 1500,900 > $(gnuplot)
-	echo set output \"$(basename $<).svg\" >> $(gnuplot)
-	echo set format y \"\" >> $(gnuplot)
-	echo set xtics 10 >> $(gnuplot)
-	echo set xtics rotate >> $(gnuplot)
-	echo set xlabel \"Hz\" >> $(gnuplot)
-	echo set grid xtics ytics >> $(gnuplot)
-	echo set tics font \"Helvetica,3\" >> $(gnuplot)
-	echo plot \"$<\" notitle with impulses >> $(gnuplot)
-
-%.svg: %.gnuplot %.csv
+%_full.svg: %_full.gnuplot
 	gnuplot $<
 
-readme.md: $(svgs)
+%_full.gnuplot: %_full.csv
+	./create_gnuplot_config.sh $(basename $<) > $@
+
+%_full.csv: wav/%.wav spectrum.o
+	./spectrum.o $< > $@
+
+# Zoom rules
+%_zoom.svg: %_zoom.gnuplot
+	gnuplot $<
+
+%_zoom.gnuplot: %_zoom.csv
+	./create_gnuplot_config.sh $(basename $<) > $@
+
+%_zoom.csv: wav/%.wav spectrum.o
+	./spectrum.o $< 16 > $@
+
+readme.md:
 	./create_readme.sh > $@
 
 clean:
