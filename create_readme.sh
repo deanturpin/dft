@@ -8,21 +8,22 @@ echo
 for svg in *.svg; do
 
   # Reconstruct WAV
-  title=wav/${svg%.*}
-  wav=$title.wav
+  title=${svg%.*}
+  wav=wav/$title.wav
   wav=${wav/_zoom/}
   wav=${wav/_full/}
   markdown=${wav%.*}.md
 
-  # Print section header
-  echo "# ${title//_/ }"
+  # Print info for the first graph if there is any
+  if [[ $title =~ full ]]; then
 
-  # Print info if there is any
-  [[ -e $markdown ]] && cat $markdown
+    # Print section header
+    echo "# ${title//_/ }"
+
+    [[ -e $markdown ]] && cat $markdown
+    echo "Listen to the [audio]($wav)."
+  fi
 
   # Print the SVG
-  echo
-  echo "Listen to the [audio]($wav)."
   echo "[![]($svg)]($svg)"
-  echo
 done
