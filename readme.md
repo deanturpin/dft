@@ -10,7 +10,7 @@ frequencies.
 
 ---
 
-Sat  9 Jun 12:07:27 BST 2018
+Sat  9 Jun 12:22:58 BST 2018
 
 # didgeridoo big tony drone
 Fundamental of 57 Hz, slightly flat of concert A#1. Next loudest peak is 398
@@ -56,15 +56,14 @@ Listen to the [audio](wav/pianoBb2.wav).
 [![](pianoBb2_full.svg)](pianoBb2_full.svg)
 [![](pianoBb2_zoom.svg)](pianoBb2_zoom.svg)
 # singing bowl1
-Fundamental of 468 Hz (close to A#4) and first octave of 936 Hz.
-
-(The only bowl with a clear octave.)
+Fundamental of 468 Hz (close to A#4) and first octave of 936 Hz. The only bowl
+with a pronounced octave.
 Listen to the [audio](wav/singing_bowl1.wav).
 [![](singing_bowl1_full.svg)](singing_bowl1_full.svg)
 [![](singing_bowl1_zoom.svg)](singing_bowl1_zoom.svg)
 # singing bowl2
-Fundamental of 89 Hz, close to F2. Significant peaks 259 Hz and 517 Hz (fifths).
-Very complex response, I suspect this was a hand-made metal bowl.
+Fundamental of 89 Hz, close to F2. Significant peaks at 259 Hz and 517 Hz
+(fifths). Very complex response, I suspect this was a hand-made metal bowl.
 
 ```
 87.31	F2
@@ -84,12 +83,6 @@ Fundamental exactly 260 Hz (close to C4). Very pure, little harmonic noise.
 Listen to the [audio](wav/singing_bowl3.wav).
 [![](singing_bowl3_full.svg)](singing_bowl3_full.svg)
 [![](singing_bowl3_zoom.svg)](singing_bowl3_zoom.svg)
-# singing bowl4
-298 Hz fundamental. Slightly sharp of D4. Small peak at 328 Hz (E4). Not as pure
-as bowl 5.
-Listen to the [audio](wav/singing_bowl4.wav).
-[![](singing_bowl4_full.svg)](singing_bowl4_full.svg)
-[![](singing_bowl4_zoom.svg)](singing_bowl4_zoom.svg)
 # singing bowl5
 Extremely pure fundamental of 298 Hz. Halfway between D4 and D#4.
 
