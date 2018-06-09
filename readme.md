@@ -10,7 +10,7 @@ frequencies.
 
 ---
 
-Sat  9 Jun 12:32:43 BST 2018
+Sat  9 Jun 12:50:28 BST 2018
 
 # didgeridoo big tony drone
 Fundamental of 57 Hz, slightly flat of concert A#1. Next loudest peak is 398
@@ -64,7 +64,7 @@ Listen to the [audio](wav/singing_bowl1.wav).
 # singing bowl2
 Fundamental of 89 Hz, close to F2. Significant peaks at 259 Hz and 517 Hz
 (fifths). Very complex response, I suspect this was a hand-made metal bowl.
-(Note that the second peak is of the side in the second plot.)
+(Note that the second peak is off the right-hand side of the second plot.)
 
 ```
 87.31	F2
