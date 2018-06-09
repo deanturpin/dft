@@ -1,24 +1,16 @@
-[![Build Status](https://travis-ci.org/deanturpin/spectrum_analyser_gnuplot.svg?branch=master)](https://travis-ci.org/deanturpin/spectrum_analyser_gnuplot)
-[![codecov](https://codecov.io/gh/deanturpin/spectrum_analyser_gnuplot/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/spectrum_analyser_gnuplot)
+[![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
+[![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
 
 A discrete Fourier transform implementation using no third-party libraries.
 Initially written to study the spectral response of my digeridoo. See
 [Wikipedia](https://en.wikipedia.org/wiki/Discrete_Fourier_transform) for the
-algorithm.
-
-Samples recorded on my Ubuntu laptop with ```arecord```.
-```bash
-arecord -q -f S16_LE -c1 -r 8000 > recording.wav
-```
-
-For each sample two plots are rendered: all Fourier bins and a second zoomed
-into the first section.
-
-See the [pitch table](pitch.md) for concert pitch frequencies.
+algorithm. For each sample two plots are rendered: all Fourier bins and a second
+zoomed into the first section. See the [pitch table](pitch.md) for concert pitch
+frequencies.
 
 ---
 
-Sat  9 Jun 03:12:08 BST 2018
+Sat  9 Jun 10:16:37 BST 2018
 
 # didgeridoo big tony drone full
 Listen to the [audio](wav/didgeridoo_big_tony_drone.wav).
@@ -28,14 +20,6 @@ Listen to the [audio](wav/didgeridoo_big_tony_drone.wav).
 Listen to the [audio](wav/didgeridoo_big_tony_toot.wav).
 [![](didgeridoo_big_tony_toot_full.svg)](didgeridoo_big_tony_toot_full.svg)
 [![](didgeridoo_big_tony_toot_zoom.svg)](didgeridoo_big_tony_toot_zoom.svg)
-# guitar open a full
-Listen to the [audio](wav/guitar_open_a.wav).
-[![](guitar_open_a_full.svg)](guitar_open_a_full.svg)
-[![](guitar_open_a_zoom.svg)](guitar_open_a_zoom.svg)
-# guitar open e full
-Listen to the [audio](wav/guitar_open_e.wav).
-[![](guitar_open_e_full.svg)](guitar_open_e_full.svg)
-[![](guitar_open_e_zoom.svg)](guitar_open_e_zoom.svg)
 # JF fibreglass slide full
 Peaks at: 81, 162, 243, 324 Hz.
 
@@ -51,22 +35,14 @@ B 5th. There's also a faint whiff of G on the right.
 Listen to the [audio](wav/KP_guest.wav).
 [![](KP_guest_full.svg)](KP_guest_full.svg)
 [![](KP_guest_zoom.svg)](KP_guest_zoom.svg)
-# major7 fractional freqs full
-Listen to the [audio](wav/major7_fractional_freqs.wav).
-[![](major7_fractional_freqs_full.svg)](major7_fractional_freqs_full.svg)
-[![](major7_fractional_freqs_zoom.svg)](major7_fractional_freqs_zoom.svg)
-# major7 precise freqs full
-Listen to the [audio](wav/major7_precise_freqs.wav).
-[![](major7_precise_freqs_full.svg)](major7_precise_freqs_full.svg)
-[![](major7_precise_freqs_zoom.svg)](major7_precise_freqs_zoom.svg)
-# piano2 full
-Listen to the [audio](wav/piano2.wav).
-[![](piano2_full.svg)](piano2_full.svg)
-[![](piano2_zoom.svg)](piano2_zoom.svg)
-# piano full
-Listen to the [audio](wav/piano.wav).
-[![](piano_full.svg)](piano_full.svg)
-[![](piano_zoom.svg)](piano_zoom.svg)
+# pianoBb1 full
+Listen to the [audio](wav/pianoBb1.wav).
+[![](pianoBb1_full.svg)](pianoBb1_full.svg)
+[![](pianoBb1_zoom.svg)](pianoBb1_zoom.svg)
+# pianoBb2 full
+Listen to the [audio](wav/pianoBb2.wav).
+[![](pianoBb2_full.svg)](pianoBb2_full.svg)
+[![](pianoBb2_zoom.svg)](pianoBb2_zoom.svg)
 # singing bowl1 full
 Listen to the [audio](wav/singing_bowl1.wav).
 [![](singing_bowl1_full.svg)](singing_bowl1_full.svg)
