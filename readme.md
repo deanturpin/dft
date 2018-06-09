@@ -10,7 +10,7 @@ frequencies.
 
 ---
 
-Sat  9 Jun 11:36:43 BST 2018
+Sat  9 Jun 11:54:14 BST 2018
 
 # didgeridoo big tony drone
 Fundamental of 57 Hz, slightly flat of concert A#1. Next loudest peak is 398
@@ -19,6 +19,8 @@ Listen to the [audio](wav/didgeridoo_big_tony_drone.wav).
 [![](didgeridoo_big_tony_drone_full.svg)](didgeridoo_big_tony_drone_full.svg)
 [![](didgeridoo_big_tony_drone_zoom.svg)](didgeridoo_big_tony_drone_zoom.svg)
 # didgeridoo big tony toot
+The toot has a fundamental of 178 Hz, a fifth of F3 above the drone. Also lots
+of activity in the higher frequencies at least up to 4 KHz.
 Listen to the [audio](wav/didgeridoo_big_tony_toot.wav).
 [![](didgeridoo_big_tony_toot_full.svg)](didgeridoo_big_tony_toot_full.svg)
 [![](didgeridoo_big_tony_toot_zoom.svg)](didgeridoo_big_tony_toot_zoom.svg)
@@ -53,6 +55,19 @@ Listen to the [audio](wav/singing_bowl1.wav).
 [![](singing_bowl1_full.svg)](singing_bowl1_full.svg)
 [![](singing_bowl1_zoom.svg)](singing_bowl1_zoom.svg)
 # singing bowl2
+Fundamental of 89 Hz, close to F2. Significant peaks 259 Hz and 517 Hz (fifths).
+Very complex response, I suspect this was a hand-made metal bowl.
+
+```
+87.31	F2
+92.50	F#2
+
+246.94	B3
+261.63	C4
+
+493.88	B4
+523.25	C5
+```
 Listen to the [audio](wav/singing_bowl2.wav).
 [![](singing_bowl2_full.svg)](singing_bowl2_full.svg)
 [![](singing_bowl2_zoom.svg)](singing_bowl2_zoom.svg)
