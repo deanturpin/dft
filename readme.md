@@ -18,7 +18,7 @@ See the [pitch table](pitch.md) for concert pitch frequencies.
 
 ---
 
-Fri  8 Jun 20:57:35 BST 2018
+Sat  9 Jun 03:12:08 BST 2018
 
 # didgeridoo big tony drone full
 Listen to the [audio](wav/didgeridoo_big_tony_drone.wav).
@@ -67,3 +67,23 @@ Listen to the [audio](wav/piano2.wav).
 Listen to the [audio](wav/piano.wav).
 [![](piano_full.svg)](piano_full.svg)
 [![](piano_zoom.svg)](piano_zoom.svg)
+# singing bowl1 full
+Listen to the [audio](wav/singing_bowl1.wav).
+[![](singing_bowl1_full.svg)](singing_bowl1_full.svg)
+[![](singing_bowl1_zoom.svg)](singing_bowl1_zoom.svg)
+# singing bowl2 full
+Listen to the [audio](wav/singing_bowl2.wav).
+[![](singing_bowl2_full.svg)](singing_bowl2_full.svg)
+[![](singing_bowl2_zoom.svg)](singing_bowl2_zoom.svg)
+# singing bowl3 full
+Listen to the [audio](wav/singing_bowl3.wav).
+[![](singing_bowl3_full.svg)](singing_bowl3_full.svg)
+[![](singing_bowl3_zoom.svg)](singing_bowl3_zoom.svg)
+# singing bowl4 full
+Listen to the [audio](wav/singing_bowl4.wav).
+[![](singing_bowl4_full.svg)](singing_bowl4_full.svg)
+[![](singing_bowl4_zoom.svg)](singing_bowl4_zoom.svg)
+# singing bowl5 full
+Listen to the [audio](wav/singing_bowl5.wav).
+[![](singing_bowl5_full.svg)](singing_bowl5_full.svg)
+[![](singing_bowl5_zoom.svg)](singing_bowl5_zoom.svg)

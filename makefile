@@ -36,7 +36,7 @@ svg_zoom = $(addsuffix _zoom.svg, $(basename $(foreach file, $(wildcard wav/*.wa
 	./create_gnuplot_config.sh $(basename $<) > $@
 
 %_zoom.csv: wav/%.wav spectrum.o
-	./spectrum.o $< 16 > $@
+	./spectrum.o $< 10 > $@
 
 readme.md:
 	./create_readme.sh > $@
