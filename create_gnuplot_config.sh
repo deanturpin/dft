@@ -6,6 +6,7 @@ readonly name=$1
 [[ $name =~ zoom ]] && font_size=10 || font_size=3
 
 echo set terminal svg size 1500,900
+echo set title \"$name\"
 echo set output \"$name.svg\"
 echo set format y \"\"
 echo set xtics 10
