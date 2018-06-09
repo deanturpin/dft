@@ -1,2 +1,10 @@
-Starting on the left: it's just shy of concert pitch E, with two E octaves and a
-B 5th. There's also a faint whiff of G on the right.
+Fundamental of 82 Hz (E2) with two octaves and a fifth (B). There's also a
+hint of 403 Hz (a slightly sharp G4).
+
+```
+82.41	E2
+164.81	E3
+246.94	B3
+329.63	E4
+392.00	G4
+```

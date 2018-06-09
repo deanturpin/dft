@@ -10,7 +10,7 @@ frequencies.
 
 ---
 
-Sat  9 Jun 11:54:14 BST 2018
+Sat  9 Jun 12:07:27 BST 2018
 
 # didgeridoo big tony drone
 Fundamental of 57 Hz, slightly flat of concert A#1. Next loudest peak is 398
@@ -34,8 +34,16 @@ Listen to the [audio](wav/JF_fibreglass_slide.wav).
 [![](JF_fibreglass_slide_full.svg)](JF_fibreglass_slide_full.svg)
 [![](JF_fibreglass_slide_zoom.svg)](JF_fibreglass_slide_zoom.svg)
 # KP guest
-Starting on the left: it's just shy of concert pitch E, with two E octaves and a
-B 5th. There's also a faint whiff of G on the right.
+Fundamental of 82 Hz (E2) with two octaves and a fifth (B). There's also a
+hint of 403 Hz (a slightly sharp G4).
+
+```
+82.41	E2
+164.81	E3
+246.94	B3
+329.63	E4
+392.00	G4
+```
 Listen to the [audio](wav/KP_guest.wav).
 [![](KP_guest_full.svg)](KP_guest_full.svg)
 [![](KP_guest_zoom.svg)](KP_guest_zoom.svg)
