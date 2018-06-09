@@ -1,5 +1,5 @@
-Fundamental of 89 Hz, close to F2. Significant peaks 259 Hz and 517 Hz (fifths).
-Very complex response, I suspect this was a hand-made metal bowl.
+Fundamental of 89 Hz, close to F2. Significant peaks at 259 Hz and 517 Hz
+(fifths). Very complex response, I suspect this was a hand-made metal bowl.
 
 ```
 87.31	F2
