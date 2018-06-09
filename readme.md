@@ -10,7 +10,7 @@ frequencies.
 
 ---
 
-Sat  9 Jun 12:50:28 BST 2018
+Sat  9 Jun 12:59:13 BST 2018
 
 # didgeridoo big tony drone
 Fundamental of 57 Hz, slightly flat of concert A#1. Next loudest peak is 398
@@ -57,14 +57,14 @@ Listen to the [audio](wav/pianoBb2.wav).
 [![](pianoBb2_zoom.svg)](pianoBb2_zoom.svg)
 # singing bowl1
 Fundamental of 468 Hz (close to A#4) and first octave of 936 Hz. The only bowl
-with a pronounced octave.
+with a pronounced octave. (Note that the second peak is off the right-hand side
+of the second plot.)
 Listen to the [audio](wav/singing_bowl1.wav).
 [![](singing_bowl1_full.svg)](singing_bowl1_full.svg)
 [![](singing_bowl1_zoom.svg)](singing_bowl1_zoom.svg)
 # singing bowl2
 Fundamental of 89 Hz, close to F2. Significant peaks at 259 Hz and 517 Hz
 (fifths). Very complex response, I suspect this was a hand-made metal bowl.
-(Note that the second peak is off the right-hand side of the second plot.)
 
 ```
 87.31	F2
