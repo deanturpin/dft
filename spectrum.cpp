@@ -1,6 +1,6 @@
 #include <complex>
 #include <fstream>
-#include <iostream>
+#include <string>
 #include <vector>
 
 // Structure of a WAV header, we're not actually reading any of the fields but
@@ -45,7 +45,7 @@ int main(int count, char *argv[]) {
 
   // Check if audio file passed as a param or use default
   const std::string audio_file =
-      (count > 1 ? argv[1] : "wav/didgeridoo_big_tony.wav");
+      (count > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
 
   const unsigned long zoom = (count > 2 ? atoi(argv[2]) : 2);
 
@@ -73,7 +73,6 @@ int main(int count, char *argv[]) {
 
     // We're only interested in the lower end of the Fourier results
     std::vector<double> fourier(bins / (zoom < 1 ? 1 : zoom));
-    std::cout << fourier.size() << " bins\n";
 
     // Read complete blocks of samples until end of file
     std::vector<short> samples(bins);
@@ -100,6 +99,6 @@ int main(int count, char *argv[]) {
 
     // Dump Fourier bins for plotting
     for (const auto &bin : fourier)
-      std::cout << bin << '\n';
+      puts(std::to_string(bin).c_str());
   }
 }
