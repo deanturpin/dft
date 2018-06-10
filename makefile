@@ -16,8 +16,8 @@ svg_zoom = $(addsuffix _zoom.svg, $(basename $(foreach file, $(wildcard wav/*.wa
 
 
 # Full resolution rules
-%.csv: wav/%.wav spectrum.o
-	./spectrum.o $< > $@
+%.csv: wav/%.wav dft.o
+	./dft.o $< > $@
 
 %_full.svg: %_full.gnuplot
 	gnuplot $<
@@ -25,8 +25,8 @@ svg_zoom = $(addsuffix _zoom.svg, $(basename $(foreach file, $(wildcard wav/*.wa
 %_full.gnuplot: %_full.csv
 	./create_gnuplot_config.sh $(basename $<) > $@
 
-%_full.csv: wav/%.wav spectrum.o
-	./spectrum.o $< > $@
+%_full.csv: wav/%.wav dft.o
+	./dft.o $< > $@
 
 # Zoom rules
 %_zoom.svg: %_zoom.gnuplot
@@ -35,8 +35,8 @@ svg_zoom = $(addsuffix _zoom.svg, $(basename $(foreach file, $(wildcard wav/*.wa
 %_zoom.gnuplot: %_zoom.csv
 	./create_gnuplot_config.sh $(basename $<) > $@
 
-%_zoom.csv: wav/%.wav spectrum.o
-	./spectrum.o $< 10 > $@
+%_zoom.csv: wav/%.wav dft.o
+	./dft.o $< 10 > $@
 
 readme.md:
 	./create_readme.sh > $@

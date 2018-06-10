@@ -1,5 +1,5 @@
 script:
-  - make CXX=clang++-6.0 spectrum.o
+  - make CXX=clang++-6.0 dft.o
   - make clean
   - make CXX=g++-6
   - cppcheck --enable=all .
