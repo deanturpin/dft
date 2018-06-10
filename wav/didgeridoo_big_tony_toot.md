@@ -1,2 +1,2 @@
-The toot has a fundamental of 178 Hz, a fifth of F3 above the drone. Also lots
-of activity in the higher frequencies at least up to 4 KHz.
+The toot has a fundamental of 178 Hz (F3) which is a fifth above the drone.
+There's also lots of activity in the higher frequencies at least up to 4 KHz.
