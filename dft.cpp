@@ -99,6 +99,6 @@ int main(int count, char *argv[]) {
 
     // Dump Fourier bins for plotting
     for (const auto &bin : fourier)
-      puts(std::to_string(bin).c_str());
+      puts(std::to_string(log(bin)).c_str());
   }
 }
