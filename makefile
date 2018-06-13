@@ -3,6 +3,8 @@ CCFLAGS = -std=c++14 --all-warnings --extra-warnings -pedantic-errors \
 	 -Wshadow -Wfloat-equal -Weffc++ -Wdelete-non-virtual-dtor
 DEBUG = -g --coverage -O3
 
+.PRECIOUS: dft.o
+
 %.o: %.cpp
 	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG)
 

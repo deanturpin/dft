@@ -39,18 +39,6 @@ int main(int count, char *argv[]) {
     // Bins in our Fourier transform
     const unsigned long bins = 8000;
 
-    // Initialise twiddle container
-    std::vector<std::complex<double>> twiddle;
-    twiddle.reserve(bins * bins);
-
-    // Create and populate twiddle matrix
-    using namespace std::complex_literals;
-    for (unsigned long k = 0; k < bins; ++k)
-      for (unsigned long n = 0; n < bins; ++n)
-        twiddle.push_back(exp(2i * M_PI * static_cast<double>(k) *
-                              static_cast<double>(n) /
-                              static_cast<double>(bins)));
-
     // Read header and calculate bin resolution
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
 
@@ -71,12 +59,18 @@ int main(int count, char *argv[]) {
       for (auto &f : fourier) {
 
         std::complex<double> sum;
-        for (unsigned long n = 0; n < bins; ++n)
-          sum +=
-              twiddle[(k * bins) + n] * std::complex<double>(samples.at(n), 0);
+        for (unsigned long n = 0; n < bins; ++n) {
 
-        ++k;
-        f += abs(sum);
+          using namespace std::complex_literals;
+          const auto t =
+              exp(2i * M_PI * static_cast<double>(k) * static_cast<double>(n) /
+                  static_cast<double>(bins));
+
+          sum += t * std::complex<double>(samples.at(n), 0);
+
+          ++k;
+          f += abs(sum);
+        }
       }
     }
 
