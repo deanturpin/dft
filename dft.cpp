@@ -20,23 +20,6 @@ struct wav_header {
   word bit_depth : 16;
   word data_id;
   word data_size;
-
-  friend std::ostream &operator<<(std::ostream &os, const wav_header &header) {
-    return os << std::hex << header.riff_id << "\triff_id\n"
-              << header.riff_size << "\triff_size\n"
-              << header.wave_tag << "\twave_tag\n"
-              << std::dec << header.format_id << "\tformat_id\n"
-              << header.format_size << "\t\tformat_size\n"
-              << header.format_tag << "\t\tformat_tag\n"
-              << header.channels << "\t\tchannels\n"
-              << header.sample_rate << "\t\tHz sample_rate\n"
-              << header.bytes_per_second << "\t\tbytes_per_second\n"
-              << header.block_align << "\t\tblock_align\n"
-              << header.bit_depth << "\t\tbit_depth\n"
-              << std::hex << header.data_id << "\tdata_id\n"
-              << header.data_size << "\tdata_size\n"
-              << std::dec;
-  };
 };
 
 int main(int count, char *argv[]) {
@@ -99,6 +82,6 @@ int main(int count, char *argv[]) {
 
     // Dump Fourier bins for plotting
     for (const auto &bin : fourier)
-      puts(std::to_string(log(bin)).c_str());
+      puts(std::to_string(bin).c_str());
   }
 }

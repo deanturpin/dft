@@ -12,6 +12,7 @@ echo set format y \"\"
 echo set xtics 10
 echo set xtics rotate
 echo set xlabel \"Hz\"
+echo set logscale y
 echo set grid xtics ytics
 echo set tics font \"Helvetica,$font_size\"
 echo plot \"$name.csv\" notitle with impulses
