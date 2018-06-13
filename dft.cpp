@@ -29,7 +29,7 @@ int main(int count, char **argv) {
   const std::string audio_file =
       (count > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
 
-  const unsigned long default_zoom = 4;
+  const unsigned long default_zoom = 2;
   const unsigned long zoom = (count > 2 ? atoi(argv[2]) : default_zoom);
 
   // Check audio file is good
