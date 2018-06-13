@@ -29,7 +29,7 @@ int main(int count, char **argv) {
   const std::string audio_file =
       (count > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
 
-  const unsigned long default_zoom = 2;
+  const unsigned long default_zoom = 10;
   const unsigned long zoom = (count > 2 ? atoi(argv[2]) : default_zoom);
 
   // Check audio file is good
@@ -59,20 +59,17 @@ int main(int count, char **argv) {
       // Convert raw samples to complex numbers
       std::vector<std::complex<double>> samples;
       samples.reserve(bins);
-
       for (const auto &s : raw)
         samples.push_back(std::complex<double>(s, 0));
 
       // Calculate Fourier transform for batch of samples
       using namespace std::complex_literals;
-      const auto comp = 2i * M_PI;
 
-      // for (auto &f : fourier) {
-      for (auto k = 0ul; k < result_bins; ++k) {
+      for (double k = 0.0; k < result_bins; ++k) {
 
         std::complex<double> sum;
         for (unsigned long n = 0; n < bins; ++n)
-          sum += exp(comp * static_cast<double>(k) * static_cast<double>(n) /
+          sum += exp(2i * M_PI * k * static_cast<double>(n) /
                      static_cast<double>(bins)) *
                  samples.at(n);
 
