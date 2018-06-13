@@ -76,7 +76,7 @@ int main(int count, char *argv[]) {
               twiddle[(k * bins) + n] * std::complex<double>(samples.at(n), 0);
 
         ++k;
-        f += abs(sum);
+        f += std::abs(sum);
       }
     }
 
