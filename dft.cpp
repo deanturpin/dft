@@ -1,5 +1,6 @@
 #include <complex>
 #include <fstream>
+#include <numeric>
 #include <string>
 #include <vector>
 
@@ -29,7 +30,7 @@ int main(int count, char **argv) {
   const std::string audio_file =
       (count > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
 
-  const unsigned long default_zoom = 10;
+  const unsigned long default_zoom = 2;
   const unsigned long zoom = (count > 2 ? atoi(argv[2]) : default_zoom);
 
   // Check audio file is good
@@ -67,13 +68,20 @@ int main(int count, char **argv) {
 
       for (double k = 0.0; k < result_bins; ++k) {
 
-        std::complex<double> sum;
-        for (unsigned long n = 0; n < bins; ++n)
-          sum += exp(2i * M_PI * k * static_cast<double>(n) /
-                     static_cast<double>(bins)) *
-                 samples.at(n);
+        const auto fsum = std::accumulate(
+            std::cbegin(samples), std::cend(samples),
+            std::complex<double>{0.0, 0.0},
+            [&bins, &k, n = 0.0 ](std::complex<double> sum,
+                                  const auto &sample) mutable {
 
-        fourier.push_back(abs(sum));
+              const auto _sum =
+                  sum +
+                  exp(2i * M_PI * k * n++ / static_cast<double>(bins)) * sample;
+
+              return _sum;
+            });
+
+        fourier.push_back(std::abs(fsum));
       }
     }
 
