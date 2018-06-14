@@ -77,6 +77,7 @@ int main(int count, char **argv) {
   const unsigned long default_zoom = 2;
   const unsigned long zoom = (count > 2 ? atoi(argv[2]) : default_zoom);
 
+  std::cerr << audio_file << '\n';
   // Check audio file is good
   std::ifstream audio(audio_file);
   if (audio.good()) {
@@ -97,18 +98,21 @@ int main(int count, char **argv) {
       samp = ~(samp - 1);
 
     // Analyse samples
-    const auto &dft = calculate_dft(std::cbegin(raw), std::cend(raw));
+    const auto &dft = calculate_dft(std::cbegin(raw), std::cend(raw), zoom);
+
+    // Construct a new filename for all output files
+    const std::string basename{audio_file + "_zoom" + std::to_string(zoom)};
 
     // Dump Fourier bins for plotting
-    std::ofstream csv_file(audio_file + ".csv");
+    std::ofstream csv_file(basename + ".csv");
     for (const auto &bin : dft)
       csv_file << bin << '\n';
 
     // Dump gnuplot config
-    std::ofstream gnuplot_file(audio_file + ".gnuplot");
+    std::ofstream gnuplot_file(basename + ".gnuplot");
     gnuplot_file << "set terminal svg size 1500,900\n";
-    gnuplot_file << "set title \"" << audio_file << "\"\n";
-    gnuplot_file << "set output \"" << audio_file + ".svg"
+    gnuplot_file << "set title \"" << basename << "\"\n";
+    gnuplot_file << "set output \"" << basename + ".svg"
                  << "\"\n";
     gnuplot_file << "set format y \"\"\n";
     gnuplot_file << "set xtics 10\n";
@@ -116,15 +120,15 @@ int main(int count, char **argv) {
     gnuplot_file << "set xlabel \"Hz\"\n";
     gnuplot_file << "set grid xtics ytics\n";
     gnuplot_file << "set tics font \"Helvetica,3\"\n";
-    gnuplot_file << "stats \"" << audio_file + ".csv\"\n";
+    gnuplot_file << "stats \"" << basename + ".csv\"\n";
     gnuplot_file << "set logscale y\n";
-    gnuplot_file << "plot \"" << audio_file + ".csv\" notitle with impulses\n";
+    gnuplot_file << "plot \"" << basename + ".csv\" notitle with impulses\n";
 
     // Close files so they're flushed
     csv_file.close();
     gnuplot_file.close();
 
-    const std::string command{"/usr/bin/gnuplot " + audio_file + ".gnuplot"};
-    system(command.c_str());
+    const std::string command{"/usr/bin/gnuplot " + basename + ".gnuplot"};
+    return system(command.c_str());
   }
 }

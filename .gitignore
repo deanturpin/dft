@@ -3,4 +3,6 @@
 *.gcno
 *.gcda
 *.gcov
+*.csv
+*.gnuplot
 gmon.out
