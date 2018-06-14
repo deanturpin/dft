@@ -8,13 +8,11 @@ echo
 for svg in wav/*.svg; do
 
   # Prepare SVG file name to convert into other file name
-  # stem=${svg%.*}
   # stem=${stem/_zoom/}
   # stem=${stem/_full/}
 
   # # Construct file names
   # wav=wav/$stem.wav
-  # markdown=wav/$stem.md
   # title=${stem//_/ }
 
   # # Print info for the first graph if there is any
@@ -22,10 +20,11 @@ for svg in wav/*.svg; do
 
   #   # Print section header
   #   echo "# $title"
+  # stem=${file%%.*}
+  # echo "Listen to the [audio]($wav)."
 
-  #   [[ -e $markdown ]] && cat $markdown
-  #   echo "Listen to the [audio]($wav)."
-  # fi
+  markdown=${svg%%.*}.md
+  [[ -e $markdown ]] && cat $markdown
 
   # Print the SVG
   echo "# ${svg%.*}"

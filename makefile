@@ -10,7 +10,6 @@ all: readme.md
 
 images: dft.o
 	$(foreach file, $(wildcard wav/*.wav), $(shell ./dft.o $(file)))
-	$(foreach file, $(wildcard wav/*.wav), $(shell ./dft.o 10 $(file)))
 
 readme.md: images
 	./create_readme.sh > $@
