@@ -1,5 +1,5 @@
 CXX = g++-6
-CCFLAGS = -std=c++14 --all-warnings --extra-warnings -pedantic-errors \
+CCFLAGS = -std=c++14 --all-warnings --extra-warnings \
 	 -Wshadow -Wfloat-equal -Weffc++ -Wdelete-non-virtual-dtor
 DEBUG = -g --coverage -O3
 

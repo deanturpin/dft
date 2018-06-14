@@ -12,7 +12,9 @@
 ```
 ```cpp
 ```
+Calculating this constant is quicker inline than a const.
 ```cpp
+2i * M_PI
 ```
 
 push_back quicker

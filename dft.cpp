@@ -25,6 +25,11 @@ struct wav_header {
   word data_size;
 };
 
+// Discrete Fourier transform calculation - third-party libraries generally use
+// optimisations that restrict dimensions of the sample array (power of two) but
+// without these limitations we can explore the beauty of the algorithm and
+// apply it
+// to problems where we couldn't use a "fast" implementation.
 template <typename Iterator>
 std::vector<double> calculate_dft(Iterator begin, Iterator end,
                                   const unsigned long zoom = 2ul) {
@@ -42,6 +47,7 @@ std::vector<double> calculate_dft(Iterator begin, Iterator end,
     std::for_each(begin, end, [&responses, &bins, &k, &begin,
                                n = 0.0 ](const auto &sample) mutable {
 
+      // Calculate the response for this sample
       using namespace std::complex_literals;
       responses.push_back(exp(2i * M_PI * double(k) * n++ / double(bins)) *
                           double(sample));

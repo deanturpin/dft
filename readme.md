@@ -10,7 +10,7 @@ frequencies.
 
 ---
 
-Wed 13 Jun 16:45:34 BST 2018
+Thu 14 Jun 17:42:01 BST 2018
 
 # bamboo drone
 Peaks at: 72, 143, 215, 286 and 357 Hz.
@@ -137,3 +137,7 @@ Extremely pure fundamental of 297 Hz. Halfway between D4 and D#4.
 Listen to the [audio](wav/singing_bowl5.wav).
 [![](singing_bowl5_full.svg)](singing_bowl5_full.svg)
 [![](singing_bowl5_zoom.svg)](singing_bowl5_zoom.svg)
+# synthesised chord
+Listen to the [audio](wav/synthesised_chord.wav).
+[![](synthesised_chord_full.svg)](synthesised_chord_full.svg)
+[![](synthesised_chord_zoom.svg)](synthesised_chord_zoom.svg)
