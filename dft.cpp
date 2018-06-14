@@ -28,8 +28,7 @@ struct wav_header {
 // Discrete Fourier transform calculation - third-party libraries generally use
 // optimisations that restrict dimensions of the sample array (power of two) but
 // without these limitations we can explore the beauty of the algorithm and
-// apply it
-// to problems where we couldn't use a "fast" implementation.
+// apply it to problems where we couldn't use a "fast" implementation.
 template <typename Iterator>
 std::vector<double> calculate_dft(Iterator begin, Iterator end,
                                   const unsigned long zoom = 2ul) {
@@ -37,25 +36,31 @@ std::vector<double> calculate_dft(Iterator begin, Iterator end,
 
   // We're going to return half as many bins as samples, the upper half is just
   // a mirror image of lower
-  const unsigned long bins = std::distance(begin, end) / (zoom > 1 ? zoom : 1);
+  const double bins = std::distance(begin, end);
+  const double results = bins / (zoom > 1 ? zoom : 1);
 
   // For each Fourier bin we need to iterate over each sample, which is O(n^2)
-  for (auto k = 0ul; k < bins; ++k) {
+  std::cerr << bins << " samples\n";
+  std::cerr << zoom << " x zoom\n";
+  for (double k = 0.0; k < results; ++k) {
 
     // Loop over every sample for each result bin and store the result
     std::vector<std::complex<double>> responses;
     std::for_each(begin, end, [&responses, &bins, &k, &begin,
-                               n = 0.0 ](const auto &sample) mutable {
+                               n = 0.0 ](const double &sample) mutable {
 
       // Calculate the response for this sample
       using namespace std::complex_literals;
-      responses.push_back(exp(2i * M_PI * double(k) * n++ / double(bins)) *
-                          double(sample));
+      responses.push_back(exp(2i * 3.141592653589793 * k * n / bins) *
+                          std::complex<double>(sample, 0.0));
+
+      ++n;
     });
 
     // Store the absolute sum of the responses
-    dft.push_back(std::abs(std::accumulate(
-        std::cbegin(responses), std::cend(responses), std::complex<double>{})));
+    dft.push_back(
+        std::abs(std::accumulate(std::cbegin(responses), std::cend(responses),
+                                 std::complex<double>{0.0, 0.0})));
   }
 
   return dft;
@@ -92,47 +97,34 @@ int main(int count, char **argv) {
       samp = ~(samp - 1);
 
     // Analyse samples
-    const auto &dft = calculate_dft(std::cbegin(raw), std::cend(raw), zoom);
+    const auto &dft = calculate_dft(std::cbegin(raw), std::cend(raw));
 
     // Dump Fourier bins for plotting
-    std::cerr << raw.size() << " samples provided\n";
-    std::cerr << dft.size() << " bins returned\n";
+    std::ofstream csv_file(audio_file + ".csv");
     for (const auto &bin : dft)
-      puts(std::to_string(bin).c_str());
+      csv_file << bin << '\n';
 
-    /*
-          // Convert raw samples to complex numbers
-          std::vector<std::complex<double>> samples;
-          samples.reserve(bins);
-          for (const auto &s : raw)
-            samples.push_back(std::complex<double>(s, 0));
+    // Dump gnuplot config
+    std::ofstream gnuplot_file(audio_file + ".gnuplot");
+    gnuplot_file << "set terminal svg size 1500,900\n";
+    gnuplot_file << "set title \"" << audio_file << "\"\n";
+    gnuplot_file << "set output \"" << audio_file + ".svg"
+                 << "\"\n";
+    gnuplot_file << "set format y \"\"\n";
+    gnuplot_file << "set xtics 10\n";
+    gnuplot_file << "set xtics rotate\n";
+    gnuplot_file << "set xlabel \"Hz\"\n";
+    gnuplot_file << "set grid xtics ytics\n";
+    gnuplot_file << "set tics font \"Helvetica,3\"\n";
+    gnuplot_file << "stats \"" << audio_file + ".csv\"\n";
+    gnuplot_file << "set logscale y\n";
+    gnuplot_file << "plot \"" << audio_file + ".csv\" notitle with impulses\n";
 
-          // Calculate Fourier transform for batch of samples
-          using namespace std::complex_literals;
+    // Close files so they're flushed
+    csv_file.close();
+    gnuplot_file.close();
 
-          for (double k = 0.0; k < result_bins; ++k) {
-
-            const auto fsum = std::accumulate(
-                std::cbegin(samples), std::cend(samples),
-                std::complex<double>{0.0, 0.0},
-                [&bins, &k, n = 0.0 ](std::complex<double> sum,
-                                      const auto &sample) mutable {
-
-                  const auto _sum =
-                      sum +
-                      exp(2i * M_PI * k * n++ / static_cast<double>(bins)) *
-       sample;
-
-                  return _sum;
-                });
-
-            fourier.push_back(std::abs(fsum));
-          }
-        }
-
-        // Dump Fourier bins for plotting
-        for (const auto &bin : fourier)
-          puts(std::to_string(bin).c_str());
-      */
+    const std::string command{"/usr/bin/gnuplot " + audio_file + ".gnuplot"};
+    system(command.c_str());
   }
 }
