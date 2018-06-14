@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <array>
 #include <complex>
 #include <fstream>
 #include <iostream>
@@ -23,27 +25,31 @@ struct wav_header {
   word data_size;
 };
 
-// Expect half as many bins returned as samples
 template <typename Iterator>
-std::vector<double> calculate_dft(Iterator begin, Iterator end) {
+std::vector<double> calculate_dft(Iterator begin, Iterator end,
+                                  const unsigned long zoom = 2ul) {
   std::vector<double> dft;
-  const unsigned long bins = std::distance(begin, end) / 2;
-  std::cerr << bins << " Fourier bins will be returned\n";
 
+  // We're going to return half as many bins as samples, the upper half is just
+  // a mirror image of lower
+  const unsigned long bins = std::distance(begin, end) / (zoom > 1 ? zoom : 1);
+
+  // For each Fourier bin we need to iterate over each sample, which is O(n^2)
   for (auto k = 0ul; k < bins; ++k) {
 
-    // For each Fourier bin loop over each sample - O(n^2)
-    const auto bin_total =
-        std::accumulate(begin, end, std::complex<double>{0.0, 0.0}, [
-          &bins, &k, n = 0.0
-        ](std::complex<double> sum, const auto &sample) mutable {
+    // Loop over every sample for each result bin and store the result
+    std::vector<std::complex<double>> responses;
+    std::for_each(begin, end, [&responses, &bins, &k, &begin,
+                               n = 0.0 ](const auto &sample) mutable {
 
-          using namespace std::complex_literals;
-          return sum += exp(2i * M_PI * double{k} * n++ / double(bins)) *
-                        double(sample);
-        });
+      using namespace std::complex_literals;
+      responses.push_back(exp(2i * M_PI * double(k) * n++ / double(bins)) *
+                          double(sample));
+    });
 
-    dft.push_back(std::abs(bin_total));
+    // Store the absolute sum of the responses
+    dft.push_back(std::abs(std::accumulate(
+        std::cbegin(responses), std::cend(responses), std::complex<double>{})));
   }
 
   return dft;
@@ -57,8 +63,8 @@ int main(int count, char **argv) {
   const std::string audio_file =
       (count > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
 
-  // const unsigned long default_zoom = 2;
-  // const unsigned long zoom = (count > 2 ? atoi(argv[2]) : default_zoom);
+  const unsigned long default_zoom = 2;
+  const unsigned long zoom = (count > 2 ? atoi(argv[2]) : default_zoom);
 
   // Check audio file is good
   std::ifstream audio(audio_file);
@@ -67,66 +73,60 @@ int main(int count, char **argv) {
     // Read header and calculate bin resolution
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
 
-    // Bins in our complete Fourier transform
+    // Bins in the complete Fourier transform
     const unsigned long bins = 8000;
-    // const unsigned long result_bins = bins / (zoom < 1 ? default_zoom :
-    // zoom);
 
-    // Create large enough container for the numebr of bins we're interested in
-    std::vector<double> fourier;
-    // fourier.reserve(result_bins);
+    // Read a single block of samples to analyse
+    std::array<short, bins> raw;
+    audio.read(reinterpret_cast<char *>(raw.data()),
+               raw.size() * sizeof(short));
 
-    // Read complete blocks of samples until end of file
-    std::vector<short> raw(bins);
-    if (audio.read(reinterpret_cast<char *>(raw.data()),
-                   raw.size() * sizeof(short))) {
+    // Convert samples to decimal (from 2's comp)
+    for (auto &samp : raw)
+      samp = ~(samp - 1);
 
-      // Convert samples to decimal (from 2's comp)
-      for (auto &samp : raw)
-        samp = ~(samp - 1);
+    // Analyse samples
+    const auto &dft = calculate_dft(std::cbegin(raw), std::cend(raw), zoom);
 
-      const auto &dft = calculate_dft(raw.cbegin(), raw.cend());
+    // Dump Fourier bins for plotting
+    std::cerr << raw.size() << " samples provided\n";
+    std::cerr << dft.size() << " bins returned\n";
+    for (const auto &bin : dft)
+      puts(std::to_string(bin).c_str());
 
-      // Dump Fourier bins for plotting
-      std::cerr << raw.size() << " samples provided\n";
-      std::cerr << dft.size() << " bins returned\n";
-      for (const auto &bin : dft)
-        puts(std::to_string(bin).c_str());
+    /*
+          // Convert raw samples to complex numbers
+          std::vector<std::complex<double>> samples;
+          samples.reserve(bins);
+          for (const auto &s : raw)
+            samples.push_back(std::complex<double>(s, 0));
 
-      /*
-            // Convert raw samples to complex numbers
-            std::vector<std::complex<double>> samples;
-            samples.reserve(bins);
-            for (const auto &s : raw)
-              samples.push_back(std::complex<double>(s, 0));
+          // Calculate Fourier transform for batch of samples
+          using namespace std::complex_literals;
 
-            // Calculate Fourier transform for batch of samples
-            using namespace std::complex_literals;
+          for (double k = 0.0; k < result_bins; ++k) {
 
-            for (double k = 0.0; k < result_bins; ++k) {
+            const auto fsum = std::accumulate(
+                std::cbegin(samples), std::cend(samples),
+                std::complex<double>{0.0, 0.0},
+                [&bins, &k, n = 0.0 ](std::complex<double> sum,
+                                      const auto &sample) mutable {
 
-              const auto fsum = std::accumulate(
-                  std::cbegin(samples), std::cend(samples),
-                  std::complex<double>{0.0, 0.0},
-                  [&bins, &k, n = 0.0 ](std::complex<double> sum,
-                                        const auto &sample) mutable {
+                  const auto _sum =
+                      sum +
+                      exp(2i * M_PI * k * n++ / static_cast<double>(bins)) *
+       sample;
 
-                    const auto _sum =
-                        sum +
-                        exp(2i * M_PI * k * n++ / static_cast<double>(bins)) *
-         sample;
+                  return _sum;
+                });
 
-                    return _sum;
-                  });
-
-              fourier.push_back(std::abs(fsum));
-            }
+            fourier.push_back(std::abs(fsum));
           }
+        }
 
-          // Dump Fourier bins for plotting
-          for (const auto &bin : fourier)
-            puts(std::to_string(bin).c_str());
-        */
-    }
+        // Dump Fourier bins for plotting
+        for (const auto &bin : fourier)
+          puts(std::to_string(bin).c_str());
+      */
   }
 }
