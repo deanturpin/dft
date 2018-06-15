@@ -4,12 +4,17 @@
 ```
 ```cpp
 ```
+Using complex literals is slower than a complex constructor
 ```cpp
+2i
+std::complex<double>(0.0, 2.0) 
 ```
 ```cpp
 ```
 ```cpp
 ```
+
+Arrays are slower than vectors
 ```cpp
 ```
 Calculating this constant is quicker inline than a const.
