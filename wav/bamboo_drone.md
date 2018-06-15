@@ -1,8 +1,8 @@
 Peaks at: 72, 143, 215, 286 and 357 Hz.
 
 A cheap bamboo didge with a Sugru mouthpiece. Fundamental of 72 Hz, slightly
-flat of D2, with a full compliment of harmonics across the whole tested
-frequency range. Not a refined sound and quite hard to play but very responsive.
+flat of D2, with a full compliment of harmonics across the whole frequency
+range. Not a refined sound and quite difficult to play but very responsive.
 
 ```
 73.42	D2
