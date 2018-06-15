@@ -19,13 +19,13 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
   std::vector<double> dft;
 
   // For each Fourier bin we need to iterate over each sample - O(n^2) - but
-  // return
-  // only half as many bins as samples, the upper half is a mirror image of the
-  // lower
+  // return only half as many bins as samples, the upper half is a mirror 
+  // image of the lower
   const double bins = std::distance(begin, end);
   for (double k = 0.0; k < bins / 2; ++k) {
 
-    // Loop over every sample for each result bin and store the result
+    // Loop over every sample for each result bin and store the result, note
+    // sample index (n) is incremented in the calculation
     std::vector<std::complex<double>> responses;
     std::transform(begin, end, std::back_inserter(responses),
                    [ n = 0.0, &bins, &k ](const auto &sample) mutable {
