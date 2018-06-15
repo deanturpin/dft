@@ -28,7 +28,7 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
     // Loop over every sample for each result bin and store the result
     std::vector<std::complex<double>> responses;
     std::transform(begin, end, std::back_inserter(responses),
-                   [&bins, &k, n = 0.0 ](const auto &sample) mutable {
+                   [ n = 0.0, &bins, &k ](const auto &sample) mutable {
 
                      // Calculate the response for this sample
                      return exp(std::complex<double>{0.0, 2.0} *

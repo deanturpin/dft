@@ -6,12 +6,12 @@ DEBUG = -g --coverage -O3
 %.o: %.cpp
 	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG)
 
-all: readme.md
+all: images readme.md
 
 images: dft.o
-	$(foreach file, $(wildcard wav/*.wav), ./dft.o $(file);)
+	$(foreach file, $(wildcard wav/*.wav), time ./dft.o $(file);)
 
-readme.md: images
+readme.md:
 	./create_readme.sh > $@
 
 clean:
