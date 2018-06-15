@@ -51,8 +51,9 @@ std::vector<double> calculate_dft(Iterator begin, Iterator end,
 
       // Calculate the response for this sample
       using namespace std::complex_literals;
-      responses.push_back(exp(2i * 3.141592653589793 * k * n / bins) *
-                          std::complex<double>(sample, 0.0));
+      responses.push_back(
+          exp(2i * 3.14159265358979323846264338328 * k * n / bins) *
+          std::complex<double>(sample, 0.0));
 
       ++n;
     });

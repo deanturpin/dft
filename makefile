@@ -15,4 +15,4 @@ readme.md: images
 	./create_readme.sh > $@
 
 clean:
-	rm -f *.o *.gcda *.gcno wav/*.svg wav/*.gnuplot wav/*.csv readme.md
+	rm -f *.o *.gcda *.gcno wav/*.gnuplot wav/*.csv readme.md
