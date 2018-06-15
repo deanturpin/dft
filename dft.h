@@ -26,16 +26,16 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
 
     // Loop over every sample for each result bin and store the result
     std::vector<std::complex<double>> responses;
-    std::for_each(begin, end, [&responses, &bins, &k,
-                               n = 0.0 ](const auto &sample) mutable {
+    std::transform(begin, end, std::back_inserter(responses),
+                   [&bins, &k, n = 0.0 ](const auto &sample) mutable {
 
-      // Calculate the response for this sample
-      responses.push_back(exp(std::complex<double>{0.0, 2.0} *
-                              3.14159265358979323846264338328 * k * n / bins) *
-                          std::complex<double>{double(sample), 0.0});
+                     // Calculate the response for this sample
+                     return exp(std::complex<double>{0.0, 2.0} *
+                                3.14159265358979323846264338328 * k * n++ /
+                                bins) *
+                            std::complex<double>{double(sample), 0.0};
 
-      ++n;
-    });
+                   });
 
     // Store the absolute sum of the responses scaled by the window size
     dft.push_back(
