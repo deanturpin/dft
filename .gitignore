@@ -1,5 +1,8 @@
+*.o
 *.swp
 *.gcno
 *.gcda
 *.gcov
+*.csv
+*.gnuplot
 gmon.out

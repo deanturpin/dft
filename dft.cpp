@@ -1,10 +1,9 @@
-#include <complex>
+#include "dft.h"
 #include <fstream>
 #include <string>
 #include <vector>
 
-// Structure of a WAV header, we're not actually reading any of the fields but
-// comments left for reference
+// Structure of a WAV header
 struct wav_header {
   using word = unsigned int;
   word riff_id;
@@ -22,7 +21,7 @@ struct wav_header {
   word data_size;
 };
 
-int main(int count, char *argv[]) {
+int main(int count, char **argv) {
 
   wav_header header;
 
@@ -30,58 +29,54 @@ int main(int count, char *argv[]) {
   const std::string audio_file =
       (count > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
 
-  const unsigned long zoom = (count > 2 ? atoi(argv[2]) : 2);
-
   // Check audio file is good
+  std::puts(audio_file.c_str());
   std::ifstream audio(audio_file);
   if (audio.good()) {
 
-    // Bins in our Fourier transform
-    const unsigned long bins = 8000;
-
-    // Initialise twiddle container
-    std::vector<std::complex<double>> twiddle;
-    twiddle.reserve(bins * bins);
-
-    // Create and populate twiddle matrix
-    using namespace std::complex_literals;
-    for (unsigned long k = 0; k < bins; ++k)
-      for (unsigned long n = 0; n < bins; ++n)
-        twiddle.push_back(exp(2i * M_PI * static_cast<double>(k) *
-                              static_cast<double>(n) /
-                              static_cast<double>(bins)));
-
-    // Read header and calculate bin resolution
+    // Read WAV header
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
 
-    // We're only interested in the lower end of the Fourier results
-    std::vector<double> fourier(bins / (zoom < 1 ? 1 : zoom));
+    // Read a block of samples to analyse
+    std::vector<short> samples(8000);
+    audio.read(reinterpret_cast<char *>(samples.data()),
+               samples.size() * sizeof(short));
 
-    // Read complete blocks of samples until end of file
-    std::vector<short> samples(bins);
-    while (audio.read(reinterpret_cast<char *>(samples.data()),
-                      samples.size() * sizeof(short))) {
+    // Analyse samples
+    const auto &dft = dft::calculate(std::cbegin(samples), std::cend(samples));
 
-      // Convert samples to decimal (from 2's comp)
-      for (auto &samp : samples)
-        samp = ~(samp - 1);
+    // Construct a new base filename for all output files
+    const std::string basename{audio_file};
 
-      // Calculate Fourier transform for batch of samples
-      unsigned long k = 0;
-      for (auto &f : fourier) {
+    // Dump DFT results for plotting
+    std::ofstream csv_file(basename + ".csv");
+    for (const auto &bin : dft)
+      csv_file << bin << '\n';
 
-        std::complex<double> sum;
-        for (unsigned long n = 0; n < bins; ++n)
-          sum +=
-              twiddle[(k * bins) + n] * std::complex<double>(samples.at(n), 0);
+    // Dump gnuplot config
+    std::ofstream gnuplot_file(basename + ".gnuplot");
+    gnuplot_file << "set terminal svg size 1500,900\n";
+    gnuplot_file << "set title \"" << basename << "\"\n";
+    gnuplot_file << "set output \"" << basename + ".svg"
+                 << "\"\n";
+    gnuplot_file << "set format y \"\"\n";
+    gnuplot_file << "set xtics 10\n";
+    gnuplot_file << "set xtics rotate\n";
+    gnuplot_file << "set xlabel \"Hz\"\n";
+    gnuplot_file << "set grid xtics ytics\n";
+    gnuplot_file << "set tics font \"Helvetica,3\"\n";
+    gnuplot_file << "stats \"" << basename + ".csv\"\n";
+    gnuplot_file << "set logscale y\n";
+    gnuplot_file << "plot \"" << basename + ".csv\" notitle with impulses\n";
 
-        ++k;
-        f += std::abs(sum);
-      }
-    }
+    // Close (and flush) files
+    csv_file.close();
+    gnuplot_file.close();
 
-    // Dump Fourier bins for plotting
-    for (const auto &bin : fourier)
-      puts(std::to_string(bin).c_str());
+    // Call plotter
+    const std::string command{"/usr/bin/gnuplot " + basename + ".gnuplot"};
+    return system(command.c_str());
   }
+
+  return 0;
 }
