@@ -34,21 +34,21 @@ int main(int count, char **argv) {
   std::ifstream audio(audio_file);
   if (audio.good()) {
 
-    // Read header and calculate bin resolution
+    // Read WAV header
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
 
-    // Read a single block of samples to analyse
-    std::vector<short> raw(8000);
-    audio.read(reinterpret_cast<char *>(raw.data()),
-               raw.size() * sizeof(short));
+    // Read a block of samples to analyse
+    std::vector<short> samples(8000);
+    audio.read(reinterpret_cast<char *>(samples.data()),
+               samples.size() * sizeof(short));
 
     // Analyse samples
-    const auto &dft = dft::calculate(std::cbegin(raw), std::cend(raw));
+    const auto &dft = dft::calculate(std::cbegin(samples), std::cend(samples));
 
-    // Construct a new filename for all output files
+    // Construct a new base filename for all output files
     const std::string basename{audio_file};
 
-    // Dump Fourier bins for plotting
+    // Dump DFT results for plotting
     std::ofstream csv_file(basename + ".csv");
     for (const auto &bin : dft)
       csv_file << bin << '\n';
@@ -69,10 +69,11 @@ int main(int count, char **argv) {
     gnuplot_file << "set logscale y\n";
     gnuplot_file << "plot \"" << basename + ".csv\" notitle with impulses\n";
 
-    // Close files so they're flushed
+    // Close (and flush) files
     csv_file.close();
     gnuplot_file.close();
 
+    // Call plotter
     const std::string command{"/usr/bin/gnuplot " + basename + ".gnuplot"};
     return system(command.c_str());
   }
