@@ -9,7 +9,7 @@ DEBUG = -g --coverage -O3
 all: readme.md
 
 images: dft.o
-	$(foreach file, $(wildcard wav/*.wav), $(shell ./dft.o $(file)))
+	$(foreach file, $(wildcard wav/*.wav), ./dft.o $(file);)
 
 readme.md: images
 	./create_readme.sh > $@
