@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <complex>
 #include <fstream>
-#include <iostream>
+// #include <iostream>
 #include <numeric>
 #include <string>
 #include <vector>
@@ -39,28 +39,26 @@ std::vector<double> calculate_dft(Iterator begin, Iterator end,
   const double results = bins / (zoom > 1 ? zoom : 1);
 
   // For each Fourier bin we need to iterate over each sample, which is O(n^2)
-  std::cerr << bins << " samples\n";
-  std::cerr << zoom << " x zoom\n";
+  // std::cerr << bins << " samples\n";
+  // std::cerr << zoom << " x zoom\n";
   for (double k = 0.0; k < results; ++k) {
 
     // Loop over every sample for each result bin and store the result
     std::vector<std::complex<double>> responses;
     std::for_each(begin, end, [&responses, &bins, &k, &begin,
-                               n = 0.0 ](const double &sample) mutable {
+                               n = 0.0 ](const auto &sample) mutable {
 
       // Calculate the response for this sample
-      using namespace std::complex_literals;
-      responses.push_back(
-          exp(2i * 3.14159265358979323846264338328 * k * n / bins) *
-          std::complex<double>(sample, 0.0));
+      responses.push_back(exp(std::complex<double>{0.0, 2.0} *
+                              3.14159265358979323846264338328 * k * n / bins) *
+                          std::complex<double>{double(sample), 0.0});
 
       ++n;
     });
 
     // Store the absolute sum of the responses
-    dft.push_back(
-        std::abs(std::accumulate(std::cbegin(responses), std::cend(responses),
-                                 std::complex<double>{0.0, 0.0})));
+    dft.push_back(std::abs(std::accumulate(
+        std::cbegin(responses), std::cend(responses), std::complex<double>{})));
   }
 
   return dft;
@@ -77,7 +75,7 @@ int main(int count, char **argv) {
   const unsigned long default_zoom = 2;
   const unsigned long zoom = (count > 2 ? atoi(argv[2]) : default_zoom);
 
-  std::cerr << audio_file << '\n';
+  // std::cerr << audio_file << '\n';
   // Check audio file is good
   std::ifstream audio(audio_file);
   if (audio.good()) {
