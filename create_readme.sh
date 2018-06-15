@@ -23,11 +23,12 @@ for svg in wav/*.svg; do
   # stem=${file%%.*}
   # echo "Listen to the [audio]($wav)."
 
+  # Section title and image
   echo "# ${svg%.*}"
+  echo "[![]($svg)]($svg)"
 
+  # Print notes if present
   markdown=${svg%%.*}.md
   [[ -e $markdown ]] && cat $markdown
 
-  # Print the SVG
-  echo "[![]($svg)]($svg)"
 done
