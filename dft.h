@@ -6,12 +6,13 @@
 #include <numeric>
 #include <vector>
 
-namespace dft {
-
 // Discrete Fourier transform calculation - third-party libraries generally use
 // optimisations that restrict dimensions of the sample array (power of two) but
 // without these limitations we can explore the beauty of the algorithm and
 // apply it to problems where we couldn't use a "fast" implementation.
+
+namespace dft {
+
 template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
 
   // Return a container of bins
@@ -36,7 +37,7 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
       ++n;
     });
 
-    // Store the absolute sum of the responses
+    // Store the absolute sum of the responses scaled by the window size
     dft.push_back(
         std::abs(std::accumulate(std::cbegin(responses), std::cend(responses),
                                  std::complex<double>{}) /
