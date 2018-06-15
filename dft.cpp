@@ -132,4 +132,6 @@ int main(int count, char **argv) {
     const std::string command{"/usr/bin/gnuplot " + basename + ".gnuplot"};
     return system(command.c_str());
   }
+
+  return 0;
 }
