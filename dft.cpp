@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <array>
 #include <complex>
 #include <fstream>
 #include <iostream>
@@ -86,11 +85,8 @@ int main(int count, char **argv) {
     // Read header and calculate bin resolution
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
 
-    // Bins in the complete Fourier transform
-    const unsigned long bins = 8000;
-
     // Read a single block of samples to analyse
-    std::array<short, bins> raw;
+    std::vector<short> raw(8000);
     audio.read(reinterpret_cast<char *>(raw.data()),
                raw.size() * sizeof(short));
 
