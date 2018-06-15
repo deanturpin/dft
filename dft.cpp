@@ -29,9 +29,6 @@ int main(int count, char **argv) {
   const std::string audio_file =
       (count > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
 
-  const unsigned long default_zoom = 2;
-  const unsigned long zoom = (count > 2 ? atoi(argv[2]) : default_zoom);
-
   // Check audio file is good
   std::puts(audio_file.c_str());
   std::ifstream audio(audio_file);
@@ -45,15 +42,11 @@ int main(int count, char **argv) {
     audio.read(reinterpret_cast<char *>(raw.data()),
                raw.size() * sizeof(short));
 
-    // Convert samples to decimal (from 2's comp)
-    for (auto &samp : raw)
-      samp = ~(samp - 1);
-
     // Analyse samples
-    const auto &dft = dft::calculate(std::cbegin(raw), std::cend(raw), zoom);
+    const auto &dft = dft::calculate(std::cbegin(raw), std::cend(raw));
 
     // Construct a new filename for all output files
-    const std::string basename{audio_file + "_zoom" + std::to_string(zoom)};
+    const std::string basename{audio_file};
 
     // Dump Fourier bins for plotting
     std::ofstream csv_file(basename + ".csv");
