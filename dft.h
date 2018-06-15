@@ -15,12 +15,13 @@ namespace dft {
 
 template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
 
-  // Return a container of bins
+  // We will return a container of frequency bins
   std::vector<double> dft;
 
-  // For each Fourier bin we need to iterate over each sample - O(n^2)
-  // By default return only half as many bins as samples, the upper half is
-  // a mirror image of the lower
+  // For each Fourier bin we need to iterate over each sample - O(n^2) - but
+  // return
+  // only half as many bins as samples, the upper half is a mirror image of the
+  // lower
   const double bins = std::distance(begin, end);
   for (double k = 0.0; k < bins / 2; ++k) {
 
@@ -33,8 +34,7 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
                      return exp(std::complex<double>{0.0, 2.0} *
                                 3.14159265358979323846264338328 * k * n++ /
                                 bins) *
-                            std::complex<double>{double(sample), 0.0};
-
+                            double(sample);
                    });
 
     // Store the absolute sum of the responses scaled by the window size
