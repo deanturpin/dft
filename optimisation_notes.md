@@ -11,7 +11,10 @@ std::complex<double>(0.0, 2.0)
 ```
 ```cpp
 ```
+
+Reserve is slower than just pushing back
 ```cpp
+ dft.reserve(results);
 ```
 
 Arrays are slower than vectors

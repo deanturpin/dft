@@ -29,18 +29,18 @@ struct wav_header {
 // without these limitations we can explore the beauty of the algorithm and
 // apply it to problems where we couldn't use a "fast" implementation.
 template <typename Iterator>
-std::vector<double> calculate_dft(Iterator begin, Iterator end,
-                                  const unsigned long zoom = 2ul) {
+auto calculate_dft(Iterator begin, Iterator end,
+                   const unsigned long zoom = 2ul) {
+
+  // Return a container of bins
   std::vector<double> dft;
 
-  // We're going to return half as many bins as samples, the upper half is just
-  // a mirror image of lower
+  // By default return only half as many bins as samples, the upper half is
+  // a mirror image of the lower
   const double bins = std::distance(begin, end);
   const double results = bins / (zoom > 1 ? zoom : 1);
 
-  // For each Fourier bin we need to iterate over each sample, which is O(n^2)
-  // std::cerr << bins << " samples\n";
-  // std::cerr << zoom << " x zoom\n";
+  // For each Fourier bin we need to iterate over each sample - O(n^2)
   for (double k = 0.0; k < results; ++k) {
 
     // Loop over every sample for each result bin and store the result
