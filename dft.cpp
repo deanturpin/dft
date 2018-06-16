@@ -1,5 +1,6 @@
 #include "dft.h"
 #include <fstream>
+#include <iterator>
 #include <string>
 #include <vector>
 
@@ -49,8 +50,10 @@ int main(int argc, char **argv) {
 
     // Dump DFT results for plotting
     std::ofstream csv_file(basename + ".csv");
-    for (const auto &bin : dft)
-      csv_file << bin << '\n';
+    // for (const auto &bin : dft)
+    //   csv_file << bin << '\n';
+    std::copy(std::cbegin(dft), std::cend(dft),
+              std::ostream_iterator<double>(csv_file, "\n"));
 
     // Dump gnuplot config
     const std::string output_filetype{"png"};
@@ -73,12 +76,11 @@ int main(int argc, char **argv) {
     gnuplot_file.close();
 
     // Report index of highest peak and current input file name
-    std::puts(
-        std::string{std::to_string(std::distance(
-                        std::cbegin(dft),
-                        std::max_element(std::cbegin(dft), std::cend(dft)))) +
-                    " Hz\t" + audio_file}
-            .c_str());
+    std::puts((std::to_string(std::distance(
+                   std::cbegin(dft),
+                   std::max_element(std::cbegin(dft), std::cend(dft)))) +
+               " Hz\t" + audio_file)
+                  .c_str());
 
     // Call plotter
     const std::string command{"/usr/bin/gnuplot " + basename + ".gnuplot"};
