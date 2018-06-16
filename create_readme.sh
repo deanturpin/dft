@@ -9,7 +9,7 @@ echo '```cpp'
 cat dft.h
 echo '```'
 
-readonly output_filetype=svg
+readonly output_filetype=png
 
 # Create a section for each WAV
 for file in wav/*.$output_filetype; do

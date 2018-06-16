@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
       csv_file << bin << '\n';
 
     // Dump gnuplot config
-    const std::string output_filetype{"svg"};
+    const std::string output_filetype{"png"};
     std::ofstream gnuplot_file(basename + ".gnuplot");
     gnuplot_file << "set terminal " << output_filetype << " size 1500,900\n"
                  << "set title \"" << basename << "\"\n"
