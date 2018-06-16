@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Sat 16 Jun 17:48:28 BST 2018
+Sat 16 Jun 23:04:37 BST 2018
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -36,7 +36,7 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
   // one-shot calculation it can be refactored into a single loop. Ordinarily
   // integers are used in for-loops but here a floating-point counter is used to
   // avoid a cast in the main calculation.
-  for (double k = 0.0; k < bins / 2; ++k) {
+  for (double k = 0.0; k < bins / 4; ++k) {
 
     // Loop over every sample for each frequency bin and store the result.
     std::vector<std::complex<double>> fou;
@@ -121,9 +121,8 @@ Listen to the [audio](wav/hobgoblin_didge_8000.wav.png).
 [![](wav/JF_fibreglass_slide.wav.png)](wav/JF_fibreglass_slide.wav.png)
 Peaks at: 81, 162, 243, 324 Hz.
 
-A fundamental of 81 Hz, just flat of E2. Equal presence of first octave, fifth
-(B3) and second octave. High frequency sparkle extends out as far as 1940 Hz.
-Very pure harmonics.
+A fundamental of 81 Hz, just flat of E2. First octave, fifth (B3) and second
+octave all quite strong.
 
 ```
 82.41	E2
@@ -196,3 +195,6 @@ Listen to the [audio](wav/synthesised_chord.wav.png).
 # wav/synthesised_chord_whole_freqs.wav
 [![](wav/synthesised_chord_whole_freqs.wav.png)](wav/synthesised_chord_whole_freqs.wav.png)
 Listen to the [audio](wav/synthesised_chord_whole_freqs.wav.png).
+# wav/synthesised_overtones.wav
+[![](wav/synthesised_overtones.wav.png)](wav/synthesised_overtones.wav.png)
+Listen to the [audio](wav/synthesised_overtones.wav.png).
