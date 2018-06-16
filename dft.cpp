@@ -54,10 +54,11 @@ int main(int argc, char **argv) {
       csv_file << bin << '\n';
 
     // Dump gnuplot config
+    const std::string output_filetype{"svg"};
     std::ofstream gnuplot_file(basename + ".gnuplot");
-    gnuplot_file << "set terminal svg size 1500,900\n"
+    gnuplot_file << "set terminal " << output_filetype << " size 1500,900\n"
                  << "set title \"" << basename << "\"\n"
-                 << "set output \"" << basename + ".svg"
+                 << "set output \"" << basename + "." + output_filetype
                  << "\"\n"
                  << "set format y \"\"\n"
                  << "set xtics 10\n"

@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Sat 16 Jun 16:44:30 BST 2018
+Sat 16 Jun 16:50:46 BST 2018
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -36,7 +36,7 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
   // one-shot calculation it can be refactored into a single loop. Ordinarily
   // integers are used in for-loops but here a floating-point counter is used to
   // avoid a cast in the main calculation.
-  for (double k = 0.0; k < bins / 2; ++k) {
+  for (double k = 0.0; k < bins / 10; ++k) {
 
     // Loop over every sample for each frequency bin and store the result.
     std::vector<std::complex<double>> fou;

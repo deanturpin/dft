@@ -9,18 +9,20 @@ echo '```cpp'
 cat dft.h
 echo '```'
 
+readonly output_filetype=svg
+
 # Create a section for each WAV
-for svg in wav/*.svg; do
+for file in wav/*.$output_filetype; do
 
   # Section title and image
-  echo "# ${svg%.*}"
-  echo "[![]($svg)]($svg)"
+  echo "# ${file%.*}"
+  echo "[![]($file)]($file)"
 
   # Print notes if present
-  markdown=${svg%%.*}.md
+  markdown=${file%%.*}.md
   [[ -e $markdown ]] && cat $markdown
 
-  echo "Listen to the [audio](${svg%.svg})."
+  echo "Listen to the [audio](${file%.svg})."
 
 done
 
