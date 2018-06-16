@@ -55,19 +55,19 @@ int main(int count, char **argv) {
 
     // Dump gnuplot config
     std::ofstream gnuplot_file(basename + ".gnuplot");
-    gnuplot_file << "set terminal svg size 1500,900\n";
-    gnuplot_file << "set title \"" << basename << "\"\n";
-    gnuplot_file << "set output \"" << basename + ".svg"
-                 << "\"\n";
-    gnuplot_file << "set format y \"\"\n";
-    gnuplot_file << "set xtics 10\n";
-    gnuplot_file << "set xtics rotate\n";
-    gnuplot_file << "set xlabel \"Hz\"\n";
-    gnuplot_file << "set grid xtics ytics\n";
-    gnuplot_file << "set tics font \"Helvetica,3\"\n";
-    gnuplot_file << "stats \"" << basename + ".csv\"\n";
-    gnuplot_file << "set logscale y\n";
-    gnuplot_file << "plot \"" << basename + ".csv\" notitle with impulses\n";
+    gnuplot_file << "set terminal svg size 1500,900\n"
+                 << "set title \"" << basename << "\"\n"
+                 << "set output \"" << basename + ".svg"
+                 << "\"\n"
+                 << "set format y \"\"\n"
+                 << "set xtics 10\n"
+                 << "set xtics rotate\n"
+                 << "set xlabel \"Hz\"\n"
+                 << "set grid xtics ytics\n"
+                 << "set tics font \"Helvetica,3\"\n"
+                 << "stats \"" << basename + ".csv\"\n"
+                 << "set logscale y\n"
+                 << "plot \"" << basename + ".csv\" notitle with impulses\n";
 
     // Close (and flush) files
     csv_file.close();
