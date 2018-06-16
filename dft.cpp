@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
                  << "set xtics rotate\n"
                  << "set xlabel \"Hz\"\n"
                  << "set grid xtics ytics\n"
-                 << "set tics font \"Helvetica,3\"\n"
+                 << "set tics font \"Helvetica,8\"\n"
                  << "set logscale y\n"
                  << "plot \"" << basename + ".csv\" notitle\n";
 
@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
     csv_file.close();
     gnuplot_file.close();
 
-    // Report basic stats
+    // Report index of highest peak and current input file name
     std::puts(
         std::string{std::to_string(std::distance(
                         std::cbegin(dft),
