@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Sat 16 Jun 23:04:37 BST 2018
+Sat 16 Jun 23:25:26 BST 2018
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -16,6 +16,10 @@ Sat 16 Jun 23:04:37 BST 2018
 // beauty of the algorithm and apply it to problems where we couldn't use a
 // "fast" implementation. It was initially written to study the characteristic
 // spectral response of my various instruments.
+//
+// There are a few opportunities for parallelisation here but I've elected to
+// keep the library simple (single-threaded) and delegate the multi-core
+// utilisation to the makefile.
 //
 // https://en.wikipedia.org/wiki/Discrete_Fourier_transform
 // https://jackschaedler.github.io/circles-sines-signals
