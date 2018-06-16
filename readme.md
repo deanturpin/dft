@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Sat 16 Jun 10:04:34 BST 2018
+Sat 16 Jun 10:33:50 BST 2018
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -11,9 +11,9 @@ Sat 16 Jun 10:04:34 BST 2018
 #include <vector>
 
 // DFT is a discrete Fourier transform implementation using no third-party
-// libraries. Libraries generally use optimisations that restrict dimensions of
-// the sample array (power of two) but without these limitations we can explore
-// the beauty of the algorithm and apply it to problems where we couldn't use a
+// libraries. Libraries often use optimisations that restrict dimensions of the
+// sample array (power of two) but without these limitations we can explore the
+// beauty of the algorithm and apply it to problems where we couldn't use a
 // "fast" implementation. It was initially written to study the spectral
 // response of my digeridoo. See
 // https://en.wikipedia.org/wiki/Discrete_Fourier_transform for the algorithm.
@@ -27,28 +27,30 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
 
   // For each Fourier bin we need to iterate over each sample - O(n^2) - but
   // return only half as many bins as samples, the upper half is a mirror
-  // image of the lower
+  // image of the lower.
   const double bins = std::distance(begin, end);
+
+  // The twiddle matrix is usually generated up front but as we're doing a
+  // one-shot calculation it can be refactored into a single loop.
   for (double k = 0.0; k < bins / 2; ++k) {
 
-    // Loop over every sample for each result bin and store the result, note
-    // sample index (n) is incremented in the calculation
-    std::vector<std::complex<double>> responses;
-    std::transform(begin, end, std::back_inserter(responses),
+    // Loop over every sample for each frequency bin and store the result.
+    std::vector<std::complex<double>> fou;
+    std::transform(begin, end, std::back_inserter(fou),
                    [ n = 0.0, &bins, &k ](const auto &sample) mutable {
 
-                     // Calculate the response for this sample
+                     // Calculate the response for this sample, note the sample
+                     // index (n) is incremented in the calculation.
                      return exp(std::complex<double>{0.0, 2.0} *
                                 3.14159265358979323846264338328 * k * n++ /
                                 bins) *
                             double(sample);
                    });
 
-    // Store the absolute sum of the responses scaled by the window size
-    dft.push_back(
-        std::abs(std::accumulate(std::cbegin(responses), std::cend(responses),
-                                 std::complex<double>{}) /
-                 bins));
+    // Store the absolute sum of the responses scaled by the window size.
+    dft.push_back(std::abs(std::accumulate(std::cbegin(fou), std::cend(fou),
+                                           std::complex<double>{}) /
+                           bins));
   }
 
   return dft;
