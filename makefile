@@ -16,7 +16,7 @@ all:
 
 images = $(foreach file, $(wildcard wav/*.wav), $(file).png)
 
-readme.md:
+readme.md: $(images)
 	./create_readme.sh > $@
 
 clean:

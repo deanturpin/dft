@@ -48,11 +48,9 @@ int main(int argc, char **argv) {
     // Construct a new base filename for all output files
     const std::string basename{audio_file};
 
-    // Dump DFT results for plotting
+    // Dump the lower half of the DFT results for plotting
     std::ofstream csv_file(basename + ".csv");
-    // for (const auto &bin : dft)
-    //   csv_file << bin << '\n';
-    std::copy(std::cbegin(dft), std::cend(dft),
+    std::copy(std::cbegin(dft), std::next(std::cbegin(dft), dft.size() / 2),
               std::ostream_iterator<double>(csv_file, "\n"));
 
     // Dump gnuplot config
