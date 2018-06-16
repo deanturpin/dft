@@ -13,6 +13,10 @@
 // "fast" implementation. It was initially written to study the characteristic
 // spectral response of my various instruments.
 //
+// There are a few opportunities for parallelisation here but I've elected to
+// keep the library simple (single-threaded) and delegate the multi-core
+// utilisation to the makefile.
+//
 // https://en.wikipedia.org/wiki/Discrete_Fourier_transform
 // https://jackschaedler.github.io/circles-sines-signals
 

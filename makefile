@@ -1,15 +1,20 @@
-CXX = g++-6
+CXX ?= g++-6
+DEBUG = -g --coverage -O3
 CCFLAGS = -std=c++14 --all-warnings --extra-warnings \
 	 -Wshadow -Wfloat-equal -Weffc++ -Wdelete-non-virtual-dtor
-DEBUG = -g --coverage -O3
 
 %.o: %.cpp
 	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG)
 
-all: images readme.md
+all:
+	$(MAKE) dft.o
+	$(MAKE) --jobs $(shell nproc) $(images)
+	$(MAKE) readme.md
 
-images: dft.o
-	$(foreach file, $(wildcard wav/*.wav), time ./dft.o $(file);)
+%.wav.png: %.wav dft.o
+	./dft.o $<
+
+images = $(foreach file, $(wildcard wav/*.wav), $(file).png)
 
 readme.md:
 	./create_readme.sh > $@
