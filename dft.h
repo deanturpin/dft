@@ -6,13 +6,15 @@
 #include <numeric>
 #include <vector>
 
-// DFT is a discrete Fourier transform implementation using no third-party
+// DFT is a discrete Fourier transform implementation that uses no third-party
 // libraries. Libraries often use optimisations that restrict dimensions of the
 // sample array (power of two) but without these limitations we can explore the
 // beauty of the algorithm and apply it to problems where we couldn't use a
-// "fast" implementation. It was initially written to study the spectral
-// response of my digeridoo. See
-// https://en.wikipedia.org/wiki/Discrete_Fourier_transform for the algorithm.
+// "fast" implementation. It was initially written to study the characteristic
+// spectral response of my various instruments.
+//
+// https://en.wikipedia.org/wiki/Discrete_Fourier_transform
+// https://jackschaedler.github.io/circles-sines-signals
 
 namespace dft {
 
