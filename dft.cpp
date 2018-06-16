@@ -21,13 +21,13 @@ struct wav_header {
   word data_size;
 };
 
-int main(int count, char **argv) {
+int main(int argc, char **argv) {
 
   wav_header header;
 
   // Check if audio file passed as a param or use default
   const std::string audio_file =
-      (count > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
+      (argc > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
 
   // Check audio file is good
   std::puts(audio_file.c_str());
