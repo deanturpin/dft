@@ -68,7 +68,7 @@ int main(int argc, char **argv) {
                  << "set tics font \"Helvetica,3\"\n"
                  << "stats \"" << basename + ".csv\"\n"
                  << "set logscale y\n"
-                 << "plot \"" << basename + ".csv\" notitle with impulses\n";
+                 << "plot \"" << basename + ".csv\" notitle\n";
 
     // Close (and flush) files
     csv_file.close();
