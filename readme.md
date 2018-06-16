@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Sat 16 Jun 10:33:50 BST 2018
+Sat 16 Jun 16:44:30 BST 2018
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -10,13 +10,15 @@ Sat 16 Jun 10:33:50 BST 2018
 #include <numeric>
 #include <vector>
 
-// DFT is a discrete Fourier transform implementation using no third-party
+// DFT is a discrete Fourier transform implementation that uses no third-party
 // libraries. Libraries often use optimisations that restrict dimensions of the
 // sample array (power of two) but without these limitations we can explore the
 // beauty of the algorithm and apply it to problems where we couldn't use a
-// "fast" implementation. It was initially written to study the spectral
-// response of my digeridoo. See
-// https://en.wikipedia.org/wiki/Discrete_Fourier_transform for the algorithm.
+// "fast" implementation. It was initially written to study the characteristic
+// spectral response of my various instruments.
+//
+// https://en.wikipedia.org/wiki/Discrete_Fourier_transform
+// https://jackschaedler.github.io/circles-sines-signals
 
 namespace dft {
 
@@ -31,7 +33,9 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
   const double bins = std::distance(begin, end);
 
   // The twiddle matrix is usually generated up front but as we're doing a
-  // one-shot calculation it can be refactored into a single loop.
+  // one-shot calculation it can be refactored into a single loop. Ordinarily
+  // integers are used in for-loops but here a floating-point counter is used to
+  // avoid a cast in the main calculation.
   for (double k = 0.0; k < bins / 2; ++k) {
 
     // Loop over every sample for each frequency bin and store the result.
@@ -97,6 +101,12 @@ Listen to the [audio](wav/didgeridoo_big_tony_drone.wav).
 The toot has a fundamental of 178 Hz (F3) which is a fifth above the drone.
 There's also lots of activity in the higher frequencies at least up to 4 KHz.
 Listen to the [audio](wav/didgeridoo_big_tony_toot.wav).
+# wav/hobgoblin_didge_16000.wav
+[![](wav/hobgoblin_didge_16000.wav.svg)](wav/hobgoblin_didge_16000.wav.svg)
+Listen to the [audio](wav/hobgoblin_didge_16000.wav).
+# wav/hobgoblin_didge_8000.wav
+[![](wav/hobgoblin_didge_8000.wav.svg)](wav/hobgoblin_didge_8000.wav.svg)
+Listen to the [audio](wav/hobgoblin_didge_8000.wav).
 # wav/JF_fibreglass_slide.wav
 [![](wav/JF_fibreglass_slide.wav.svg)](wav/JF_fibreglass_slide.wav.svg)
 Peaks at: 81, 162, 243, 324 Hz.
@@ -126,11 +136,9 @@ scale](https://en.wikipedia.org/wiki/E_minor) on Wikipedia.
 392.00	G4
 ```
 Listen to the [audio](wav/KP_guest.wav).
-# wav/pianoBb1.wav
-[![](wav/pianoBb1.wav.svg)](wav/pianoBb1.wav.svg)
-Listen to the [audio](wav/pianoBb1.wav).
 # wav/pianoBb2.wav
 [![](wav/pianoBb2.wav.svg)](wav/pianoBb2.wav.svg)
+Striking the A2 key on a baby grand piano (no pedal).
 Listen to the [audio](wav/pianoBb2.wav).
 # wav/singing_bowl1.wav
 [![](wav/singing_bowl1.wav.svg)](wav/singing_bowl1.wav.svg)
