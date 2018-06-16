@@ -27,7 +27,9 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
   const double bins = std::distance(begin, end);
 
   // The twiddle matrix is usually generated up front but as we're doing a
-  // one-shot calculation it can be refactored into a single loop.
+  // one-shot calculation it can be refactored into a single loop. Ordinarily
+  // integers are used in for-loops but here a floating-point counter is used to
+  // avoid a cast in the main calculation.
   for (double k = 0.0; k < bins / 2; ++k) {
 
     // Loop over every sample for each frequency bin and store the result.
