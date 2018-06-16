@@ -6,10 +6,13 @@
 #include <numeric>
 #include <vector>
 
-// Discrete Fourier transform calculation - third-party libraries generally use
-// optimisations that restrict dimensions of the sample array (power of two) but
-// without these limitations we can explore the beauty of the algorithm and
-// apply it to problems where we couldn't use a "fast" implementation.
+// DFT is a discrete Fourier transform implementation using no third-party
+// libraries. Libraries generally use optimisations that restrict dimensions of
+// the sample array (power of two) but without these limitations we can explore
+// the beauty of the algorithm and apply it to problems where we couldn't use a
+// "fast" implementation. It was initially written to study the spectral
+// response of my digeridoo. See
+// https://en.wikipedia.org/wiki/Discrete_Fourier_transform for the algorithm.
 
 namespace dft {
 

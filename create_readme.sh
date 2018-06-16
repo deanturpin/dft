@@ -1,8 +1,13 @@
 #!/bin/bash
 
-cat template.md
+echo '[![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)'
+echo '[![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)'
+
 TZ=BST-1 date
-echo
+
+echo '```cpp'
+cat dft.h
+echo '```'
 
 # Create a section for each WAV
 for svg in wav/*.svg; do
