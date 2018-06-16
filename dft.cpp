@@ -30,7 +30,6 @@ int main(int argc, char **argv) {
       (argc > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
 
   // Check audio file is good
-  std::puts(audio_file.c_str());
   std::ifstream audio(audio_file);
   if (audio.good()) {
 
@@ -56,7 +55,7 @@ int main(int argc, char **argv) {
     // Dump gnuplot config
     const std::string output_filetype{"png"};
     std::ofstream gnuplot_file(basename + ".gnuplot");
-    gnuplot_file << "set terminal " << output_filetype << " size 1500,900\n"
+    gnuplot_file << "set terminal " << output_filetype << " size 2000,1500\n"
                  << "set title \"" << basename << "\"\n"
                  << "set output \"" << basename + "." + output_filetype
                  << "\"\n"
@@ -66,13 +65,20 @@ int main(int argc, char **argv) {
                  << "set xlabel \"Hz\"\n"
                  << "set grid xtics ytics\n"
                  << "set tics font \"Helvetica,3\"\n"
-                 << "stats \"" << basename + ".csv\"\n"
                  << "set logscale y\n"
                  << "plot \"" << basename + ".csv\" notitle\n";
 
     // Close (and flush) files
     csv_file.close();
     gnuplot_file.close();
+
+    // Report basic stats
+    std::puts(
+        std::string{std::to_string(std::distance(
+                        std::cbegin(dft),
+                        std::max_element(std::cbegin(dft), std::cend(dft)))) +
+                    " Hz\t" + audio_file}
+            .c_str());
 
     // Call plotter
     const std::string command{"/usr/bin/gnuplot " + basename + ".gnuplot"};

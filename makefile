@@ -8,7 +8,7 @@ CCFLAGS = -std=c++14 --all-warnings --extra-warnings \
 
 all:
 	$(MAKE) dft.o
-	$(MAKE) --jobs $(shell nproc) $(images)
+	$(MAKE) --silent --jobs $(shell nproc) $(images)
 	$(MAKE) readme.md
 
 %.wav.png: %.wav dft.o
