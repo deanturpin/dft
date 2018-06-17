@@ -26,7 +26,7 @@ namespace dft {
 
 template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
 
-  // We will return a container of frequency bins
+  // This routine will return a container of frequency bins
   std::vector<double> dft;
 
   // For each Fourier bin we need to iterate over each sample - O(n^2) - but
