@@ -6,8 +6,8 @@
 #include <numeric>
 #include <vector>
 
-// DFT is a discrete Fourier transform implementation that uses no third-party
-// libraries. Libraries often use optimisations that restrict dimensions of the
+// DFT is a header-only discrete Fourier transform implementation written in
+// C++14. Libraries often use optimisations that restrict dimensions of the
 // sample array (power of two) but without these limitations we can explore the
 // beauty of the algorithm and apply it to problems where we couldn't use a
 // "fast" implementation. It was initially written to study the characteristic
