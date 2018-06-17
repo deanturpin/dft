@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Sun 17 Jun 17:29:33 BST 2018
+Sun 17 Jun 18:47:00 BST 2018
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -10,8 +10,8 @@ Sun 17 Jun 17:29:33 BST 2018
 #include <numeric>
 #include <vector>
 
-// DFT is a discrete Fourier transform implementation that uses no third-party
-// libraries. Libraries often use optimisations that restrict dimensions of the
+// DFT is a header-only discrete Fourier transform implementation written in
+// C++14. Libraries often use optimisations that restrict dimensions of the
 // sample array (power of two) but without these limitations we can explore the
 // beauty of the algorithm and apply it to problems where we couldn't use a
 // "fast" implementation. It was initially written to study the characteristic
@@ -43,9 +43,9 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
   // used to avoid a cast in the subsequent calculation.
   for (double k = 0.0; k < bins / 2; ++k) {
 
-    // Iterate over all samples for this frequency bin, calculate the response
-    // and store the result. Note the sample index (n) is incremented during the
-    // calculation.
+    // Iterate over all samples for the current bin index (k), calculate the
+    // response and store the result. Note the sample index (n) is incremented
+    // during the calculation.
     std::vector<std::complex<double>> fou;
     std::transform(begin, end, std::back_inserter(fou),
                    [ n = 0.0, &bins, &k ](const auto &sample) mutable {
