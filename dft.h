@@ -39,9 +39,9 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
   // used to avoid a cast in the subsequent calculation.
   for (double k = 0.0; k < bins / 2; ++k) {
 
-    // Iterate over all samples for this frequency bin, calculate the response
-    // and store the result. Note the sample index (n) is incremented during the
-    // calculation.
+    // Iterate over all samples for the current bin index (k), calculate the
+    // response and store the result. Note the sample index (n) is incremented
+    // during the calculation.
     std::vector<std::complex<double>> fou;
     std::transform(begin, end, std::back_inserter(fou),
                    [ n = 0.0, &bins, &k ](const auto &sample) mutable {
