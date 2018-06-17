@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Sun 17 Jun 19:00:32 BST 2018
+Sun 17 Jun 22:17:45 BST 2018
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -46,7 +46,7 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
     // Iterate over all samples for the current bin index (k), calculate the
     // response and store the result. Note the sample index (n) is incremented
     // during the calculation. See the Wikipedia link above for the details of
-    // the algorithm. 
+    // the algorithm.
     std::vector<std::complex<double>> fou;
     std::transform(begin, end, std::back_inserter(fou),
                    [ n = 0.0, &bins, &k ](const auto &sample) mutable {
@@ -86,27 +86,30 @@ range. Not a refined sound and quite difficult to play but very responsive.
 Listen to the [audio](wav/bamboo_drone.wav).
 # DIDGERIDOO BIG TONY DRONE
 [![](wav/didgeridoo_big_tony_drone.wav.png)](wav/didgeridoo_big_tony_drone.wav.png)
-Peaks: 57, 172, 285, 398 Hz.
-
-Fundamental of 57 Hz, slightly flat of concert Bb1. Next loudest peak is 398 Hz
-(G4), which is a sixth interval in Bb Major. See [the
-scale](https://en.wikipedia.org/wiki/B-flat_major) on Wikipedia.
-
-This didgeridoo was liberated from the dump and is probably Eucalyptus:
-woolybutt, bloodwood and stringybark have been discussed.
-
-```
-58.27	A#1
-174.61	F3
-293.66	D4
-392.00	G4
-```
+Fundamental of 57 Hz, slightly flat of concert Bb1. Key intervals: 1, 3, 5 and 7
+which is Bb Major 7. This didgeridoo was liberated from the dump and is probably
+Eucalyptus: woolybutt, bloodwood and stringybark have been suggested.
 Listen to the [audio](wav/didgeridoo_big_tony_drone.wav).
 # DIDGERIDOO BIG TONY TOOT
 [![](wav/didgeridoo_big_tony_toot.wav.png)](wav/didgeridoo_big_tony_toot.wav.png)
 The toot has a fundamental of 178 Hz (F3) which is a fifth above the drone.
 There's also lots of activity in the higher frequencies at least up to 4 KHz.
 Listen to the [audio](wav/didgeridoo_big_tony_toot.wav).
+# GLASS1
+[![](wav/glass1.wav.png)](wav/glass1.wav.png)
+Listen to the [audio](wav/glass1.wav).
+# GLASS2
+[![](wav/glass2.wav.png)](wav/glass2.wav.png)
+Listen to the [audio](wav/glass2.wav).
+# GLASS3
+[![](wav/glass3.wav.png)](wav/glass3.wav.png)
+Listen to the [audio](wav/glass3.wav).
+# GLASS4
+[![](wav/glass4.wav.png)](wav/glass4.wav.png)
+Listen to the [audio](wav/glass4.wav).
+# GLASS5
+[![](wav/glass5.wav.png)](wav/glass5.wav.png)
+Listen to the [audio](wav/glass5.wav).
 # HOBGOBLIN DIDGE 8000
 [![](wav/hobgoblin_didge_8000.wav.png)](wav/hobgoblin_didge_8000.wav.png)
 Peaks at 75, 149, 224, 299 374, 448 Hz.

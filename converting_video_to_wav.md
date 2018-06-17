@@ -1,3 +1,8 @@
+Recording WAVs
+```
+arecord -q -f S16_LE -c1 -r 8000 > recording.wav
+```
+
 MP4 to WAV
 ```
 ffmpeg -i in.mp4 out.wav
