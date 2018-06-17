@@ -1,10 +1,19 @@
 script:
+  # clang build
   - make CXX=clang++-6.0 dft.o
-  - make clean
-  - make CXX=g++-6
+
+  # gcc build with profiler
+  - make CXX=g++-6 DEBUG='-g -pg -O3' clean dft.o
+  - ./dft.o && gprof --brief ./dft.o
+
+  # CPP check
+  - make CXX=g++-6 clean all
   - cppcheck --enable=all .
+
+  # Upload coverage
   - bash <(curl -s https://codecov.io/bash)
 
+# Deploy to GitHub pages
 deploy:
   provider: pages
   github-token: ${api_key}
@@ -12,6 +21,7 @@ deploy:
   on:
     branch: master
 
+# Linux build with gcc and clang
 matrix:
   include:
     - os: linux
@@ -25,3 +35,4 @@ matrix:
             - g++-6
             - cppcheck
             - gnuplot
+            - gprof

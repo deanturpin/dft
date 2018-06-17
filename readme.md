@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Sun 17 Jun 10:41:31 BST 2018
+Sun 17 Jun 17:29:33 BST 2018
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -15,21 +15,21 @@ Sun 17 Jun 10:41:31 BST 2018
 // sample array (power of two) but without these limitations we can explore the
 // beauty of the algorithm and apply it to problems where we couldn't use a
 // "fast" implementation. It was initially written to study the characteristic
-// spectral response of my various instruments.
-//
-// There are a few opportunities for parallelisation here but I've elected to
-// keep the library simple (single-threaded) and delegate the multi-core
-// utilisation to the makefile.
+// spectral response of my various instruments. The calculate() routine takes a
+// pair of STL container iterators and returns the Fourier transform as a vector
+// of bins. We could consider parallelising the matrix calculation but I've
+// elected to keep the library simple (single-threaded) and delegated the
+// multi-core utilisation to the makefile: the build process generates multiple
+// images in parallel.
 //
 // https://en.wikipedia.org/wiki/Discrete_Fourier_transform
 // https://jackschaedler.github.io/circles-sines-signals
-// https://en.wikipedia.org/wiki/Overtone
 
 namespace dft {
 
 template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
 
-  // We will return a container of frequency bins
+  // This routine will return a container of frequency bins.
   std::vector<double> dft;
 
   // For each Fourier bin we need to iterate over each sample - O(n^2) - but
@@ -37,26 +37,26 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
   // image of the lower.
   const double bins = std::distance(begin, end);
 
-  // The twiddle matrix is usually generated up front but as we're doing a
-  // one-shot calculation it can be refactored into a single loop. Ordinarily
-  // integers are used in for-loops but here a floating-point counter is used to
-  // avoid a cast in the main calculation.
+  // The twiddle matrix is usually generated up front but as we're performing a
+  // one-shot calculation it can be refactored into a single loop. Normally you
+  // would expect integer array indices but here a floating-point counter is
+  // used to avoid a cast in the subsequent calculation.
   for (double k = 0.0; k < bins / 2; ++k) {
 
-    // Loop over every sample for each frequency bin and store the result.
+    // Iterate over all samples for this frequency bin, calculate the response
+    // and store the result. Note the sample index (n) is incremented during the
+    // calculation.
     std::vector<std::complex<double>> fou;
     std::transform(begin, end, std::back_inserter(fou),
                    [ n = 0.0, &bins, &k ](const auto &sample) mutable {
-
-                     // Calculate the response for this sample, note the sample
-                     // index (n) is incremented in the calculation.
                      return exp(std::complex<double>{0.0, 2.0} *
                                 3.14159265358979323846264338328 * k * n++ /
                                 bins) *
                             double(sample);
                    });
 
-    // Store the absolute sum of the responses scaled by the window size.
+    // Store the absolute sum of all responses for this frequency bin and scale
+    // it by the window size (number of samples).
     dft.push_back(std::abs(std::accumulate(std::cbegin(fou), std::cend(fou),
                                            std::complex<double>{}) /
                            bins));
