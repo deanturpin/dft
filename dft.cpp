@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
 
     // Dump the lower half of the DFT results for plotting
     std::ofstream csv_file(basename + ".csv");
-    std::copy(std::cbegin(dft), std::next(std::cbegin(dft), dft.size() / 2),
+    std::copy(std::cbegin(dft), std::cend(dft),
               std::ostream_iterator<double>(csv_file, "\n"));
 
     // Dump gnuplot config
