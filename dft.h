@@ -39,20 +39,20 @@ template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
   // avoid a cast in the main calculation.
   for (double k = 0.0; k < bins / 2; ++k) {
 
-    // Loop over every sample for each frequency bin and store the result.
+    // Loop over every sample for each frequency bin, calculate the response and
+    // store the result. Note the sample index (n) is incremented during the
+    // calculation.
     std::vector<std::complex<double>> fou;
     std::transform(begin, end, std::back_inserter(fou),
                    [ n = 0.0, &bins, &k ](const auto &sample) mutable {
-
-                     // Calculate the response for this sample, note the sample
-                     // index (n) is incremented during the calculation.
                      return exp(std::complex<double>{0.0, 2.0} *
                                 3.14159265358979323846264338328 * k * n++ /
                                 bins) *
                             double(sample);
                    });
 
-    // Store the absolute sum of the responses scaled by the window size.
+    // Store the absolute sum of all responses for this frequency bin and scale
+    // it by the window size (number of samples).
     dft.push_back(std::abs(std::accumulate(std::cbegin(fou), std::cend(fou),
                                            std::complex<double>{}) /
                            bins));
