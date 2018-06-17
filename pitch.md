@@ -1,4 +1,4 @@
-# First 12 overtones
+# First 12 harmonics
 ```
 1151 357 12345
 ```
@@ -12,7 +12,7 @@
 6       494.46  B4	fifth
 7       576.87  D5	seventh
 8       659.28  E5	octave
-9       741.69  F#5 sixth
+9       741.69  F#5 second
 10      824.1   G#5	major third
 11      906.51  A5	fourth
 12      988.92  B5	fifth
