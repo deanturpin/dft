@@ -15,14 +15,18 @@ readonly output_filetype=png
 for file in wav/*.$output_filetype; do
 
   # Section title and image
-  echo "# ${file%.*}"
+  title=${file%%.*}
+  title=$(basename $title)
+  title=${title//_/ }
+  title=${title^^*}
+  echo "# $title"
   echo "[![]($file)]($file)"
 
   # Print notes if present
   markdown=${file%%.*}.md
   [[ -e $markdown ]] && cat $markdown
 
-  echo "Listen to the [audio](${file%.svg})."
+  echo "Listen to the [audio](${file%.*})."
 
 done
 
