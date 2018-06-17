@@ -25,23 +25,24 @@ namespace dft {
 
 template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
 
-  // This routine will return a container of frequency bins.
+  // This routine will return the results as a container of frequency bins.
   std::vector<double> dft;
 
-  // For each Fourier bin we need to iterate over each sample - O(n^2) - but
-  // return only half as many bins as samples, the upper half is a mirror
-  // image of the lower.
+  // For each Fourier bin we need to iterate over each sample - O(n^2) - but we
+  // will return only half as many bins as samples - the upper half is a mirror
+  // image of the lower, i.e., redundant.
   const double bins = std::distance(begin, end);
 
-  // The twiddle matrix is usually generated up front but as we're performing a
-  // one-shot calculation it can be refactored into a single loop. Normally you
-  // would expect integer array indices but here a floating-point counter is
-  // used to avoid a cast in the subsequent calculation.
+  // The "twiddle matrix" is usually generated up front but as we're performing
+  // a one-shot calculation it can be refactored into a single loop. Normally
+  // you would expect to see integer array indices but here a floating-point
+  // counter is used to avoid a cast in the subsequent calculation.
   for (double k = 0.0; k < bins / 2; ++k) {
 
     // Iterate over all samples for the current bin index (k), calculate the
     // response and store the result. Note the sample index (n) is incremented
-    // during the calculation.
+    // during the calculation. See the Wikipedia link above for the details of
+    // the algorithm.
     std::vector<std::complex<double>> fou;
     std::transform(begin, end, std::back_inserter(fou),
                    [ n = 0.0, &bins, &k ](const auto &sample) mutable {
