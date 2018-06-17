@@ -1,3 +1,8 @@
+# First 12 overtones
+```
+1151 357 12345
+```
+
 ```
 1       82.41   E2	fundamental
 2       164.82  E3	octave
@@ -16,6 +21,8 @@
 15      1236.15 D#6	
 16      1318.56 E6	octave
 ```
+
+# Note frequencies
 ```
 16.35	C0
 17.32	C#0
