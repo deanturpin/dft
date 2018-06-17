@@ -11,16 +11,15 @@
 // sample array (power of two) but without these limitations we can explore the
 // beauty of the algorithm and apply it to problems where we couldn't use a
 // "fast" implementation. It was initially written to study the characteristic
-// spectral response of my various instruments.
-//
-// We could consider parallelising the matrix calculation but I've elected to
-// keep the library simple (single-threaded) and delegated the multi-core
-// utilisation to the makefile: the build process generates multiple images in
-// parallel.
+// spectral response of my various instruments. The calculate() routine takes a
+// pair of STL container iterators and returns the Fourier transform as a vector
+// of bins. We could consider parallelising the matrix calculation but I've
+// elected to keep the library simple (single-threaded) and delegated the
+// multi-core utilisation to the makefile: the build process generates multiple
+// images in parallel.
 //
 // https://en.wikipedia.org/wiki/Discrete_Fourier_transform
 // https://jackschaedler.github.io/circles-sines-signals
-// https://en.wikipedia.org/wiki/Overtone
 
 namespace dft {
 
