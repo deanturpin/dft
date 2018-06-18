@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
                  << "set xtics rotate\n"
                  << "set xlabel \"Hz\"\n"
                  << "set grid xtics ytics\n"
-                 << "set tics font \"Helvetica,8\"\n"
+                 << "set tics font \"Helvetica,5\"\n"
                  << "set logscale y\n"
                  << "plot \"" << basename + ".csv\" notitle\n";
 
