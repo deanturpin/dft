@@ -23,7 +23,8 @@
 
 namespace dft {
 
-template <typename Iterator> auto calculate(Iterator begin, Iterator end) {
+template <typename Iterator>
+auto calculate(const Iterator begin, const Iterator end) {
 
   // This routine will return the results as a container of frequency bins.
   std::vector<double> dft;
