@@ -11,10 +11,10 @@ all:
 	$(MAKE) --silent --jobs $(shell nproc) $(images)
 	$(MAKE) readme.md
 
-%.wav.png: %.wav dft.o
+%.png: %.wav dft.o
 	./dft.o $<
 
-images = $(foreach file, $(wildcard wav/*.wav), $(file).png)
+images = $(patsubst %.wav, %.png, $(wildcard wav/*.wav))
 
 readme.md: $(images)
 	./create_readme.sh > $@

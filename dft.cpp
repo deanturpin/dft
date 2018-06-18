@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
       (argc > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
 
   // Check audio file is good
-  std::ifstream audio(audio_file);
+  std::ifstream audio(audio_file, std::ios::binary);
   if (audio.good()) {
 
     // Read WAV header
@@ -41,14 +41,15 @@ int main(int argc, char **argv) {
     std::vector<short> samples(8000);
     audio.read(reinterpret_cast<char *>(samples.data()),
                samples.size() * sizeof(short));
+    // std::vector<short> samples(std::istreambuf_iterator<short>(audio), {});
 
     // Analyse samples
     const auto &dft = dft::calculate(std::cbegin(samples), std::cend(samples));
 
     // Construct a new base filename for all output files
-    const std::string basename{audio_file};
+    const std::string basename{audio_file.substr(0, audio_file.find('.'))};
 
-    // Dump the lower half of the DFT results for plotting
+    // Dump the DFT results for plotting
     std::ofstream csv_file(basename + ".csv");
     std::copy(std::cbegin(dft), std::cend(dft),
               std::ostream_iterator<double>(csv_file, "\n"));

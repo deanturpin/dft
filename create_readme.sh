@@ -9,13 +9,11 @@ echo '```cpp'
 cat dft.h
 echo '```'
 
-readonly output_filetype=png
-
 # Create a section for each WAV
-for file in wav/*.$output_filetype; do
+for file in wav/*.png; do
 
   # Section title and image
-  title=${file%%.*}
+  title=${file%.*}
   title=$(basename $title)
   title=${title//_/ }
   title=${title^^*}
@@ -26,7 +24,7 @@ for file in wav/*.$output_filetype; do
   markdown=${file%%.*}.md
   [[ -e $markdown ]] && cat $markdown
 
-  echo "Listen to the [audio](${file%.*})."
+  echo "Listen to the [audio](${file%.*}.wav)."
 
 done
 
