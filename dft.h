@@ -26,6 +26,8 @@ namespace dft {
 template <typename Iterator>
 auto calculate(const Iterator begin, const Iterator end) {
 
+  using namespace std::complex_literals;
+
   // This routine will return the results as a container of frequency bins.
   std::vector<double> dft;
 
@@ -40,18 +42,18 @@ auto calculate(const Iterator begin, const Iterator end) {
   // counter is used to avoid a cast in the subsequent calculation.
   for (double k = 0.0; k < total_samples / 2; ++k) {
 
+    // Definition of our Fourier function
+    const auto sinusoidal =
+        [ n = 0.0, &total_samples, &k ](const auto &sample) mutable {
+      return exp(2i * M_PI * k * n++ / total_samples) * double(sample);
+    };
+
     // Iterate over all samples for the current bin index (k), calculate the
     // response and store the result. Note the sample index (n) is incremented
     // during the calculation. See the Wikipedia link above for the details of
     // the algorithm.
     std::vector<std::complex<double>> fou;
-    std::transform(begin, end, std::back_inserter(fou),
-                   [ n = 0.0, &total_samples, &k ](const auto &sample) mutable {
-                     return exp(std::complex<double>{0.0, 2.0} *
-                                3.14159265358979323846264338328 * k * n++ /
-                                total_samples) *
-                            double(sample);
-                   });
+    std::transform(begin, end, std::back_inserter(fou), sinusoidal);
 
     // Store the absolute sum of all responses for this frequency bin and scale
     // it by the window size (number of samples).

@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
       (argc > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
 
   // Check audio file is good
-  std::ifstream audio(audio_file, std::ios::binary);
+  std::ifstream audio(audio_file);
   if (audio.good()) {
 
     // Read WAV header
@@ -41,7 +41,6 @@ int main(int argc, char **argv) {
     std::vector<short> samples(8000);
     audio.read(reinterpret_cast<char *>(samples.data()),
                samples.size() * sizeof(short));
-    // std::vector<short> samples(std::istreambuf_iterator<short>(audio), {});
 
     // Analyse samples
     const auto &dft = dft::calculate(std::cbegin(samples), std::cend(samples));
@@ -66,7 +65,7 @@ int main(int argc, char **argv) {
                  << "set xtics rotate\n"
                  << "set xlabel \"Hz\"\n"
                  << "set grid xtics ytics\n"
-                 << "set tics font \"Helvetica,5\"\n"
+                 << "set tics font \"Helvetica,3\"\n"
                  << "set logscale y\n"
                  << "plot \"" << basename + ".csv\" notitle\n";
 
@@ -75,11 +74,13 @@ int main(int argc, char **argv) {
     gnuplot_file.close();
 
     // Report index of highest peak and current input file name
-    std::puts((std::to_string(std::distance(
-                   std::cbegin(dft),
-                   std::max_element(std::cbegin(dft), std::cend(dft)))) +
-               " Hz\t" + audio_file)
-                  .c_str());
+    std::puts(
+        (std::to_string(std::distance(std::cbegin(dft),
+                                      (std::max_element(std::cbegin(dft),
+                                                        std::cend(dft)))) +
+                        1) +
+         " Hz\t" + audio_file)
+            .c_str());
 
     // Call plotter
     const std::string command{"/usr/bin/gnuplot " + basename + ".gnuplot"};
