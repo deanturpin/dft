@@ -1,3 +1,4 @@
+language: cpp
 script:
   # clang build
   - make CXX=clang++-6.0 dft.o
