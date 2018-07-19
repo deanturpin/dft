@@ -4,12 +4,11 @@ script:
   - make CXX=clang++-6.0 dft.o
 
   # gcc build with coverage and profiler (no optimisation)
-  - make CXX=g++-8 DEBUG='-g -pg --coverage' clean dft.o
+  - make CXX=g++-7 DEBUG='-g -pg --coverage' clean dft.o
   - ./dft.o && gprof dft.o
 
   # Generate and upload coverage
   - gcov --version
-  - gcov -a dft.o
   - bash <(curl -s https://codecov.io/bash)
 
   # Main gcc build
@@ -36,7 +35,7 @@ matrix:
             - llvm-toolchain-trusty-6.0
           packages:
             - clang++-6.0
+            - g++-7
             - g++-8
             - cppcheck
             - gnuplot
-            - gcov
