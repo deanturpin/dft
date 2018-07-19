@@ -3,7 +3,7 @@ script:
   - make CXX=clang++-6.0 dft.o
 
   # gcc build with coverage and profiler (no optimisation)
-  - make CXX=g++-6 DEBUG='-g -pg --coverage' clean dft.o
+  - make CXX=g++-8 DEBUG='-g -pg --coverage' clean dft.o
   - ./dft.o && gprof dft.o
 
   # Upload coverage
