@@ -7,7 +7,8 @@ script:
   - ./dft.o && gprof dft.o
 
   # Generate and upload coverage
-  - gcov -j -a dft.o
+  - gcov --version
+  - gcov -a dft.o
   - bash <(curl -s https://codecov.io/bash)
 
   # Main gcc build
