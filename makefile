@@ -1,6 +1,6 @@
-CXX ?= g++-6
+CXX ?= g++-8
 DEBUG = -O3
-CCFLAGS = -std=c++14 --all-warnings --extra-warnings \
+CCFLAGS = -std=c++17 --all-warnings --extra-warnings \
 	 -Wshadow -Wfloat-equal -Weffc++ -Wdelete-non-virtual-dtor
 
 %.o: %.cpp

@@ -4,27 +4,25 @@
 #include <string>
 #include <vector>
 
-// Structure of a WAV header
-struct wav_header {
-  using word = unsigned int;
-  word riff_id;
-  word riff_size;
-  word wave_tag;
-  word format_id;
-  word format_size;
-  word format_tag : 16;
-  word channels : 16;
-  word sample_rate;
-  word bytes_per_second;
-  word block_align : 16;
-  word bit_depth : 16;
-  word data_id;
-  word data_size;
-};
-
 int main(int argc, char **argv) {
 
-  wav_header header;
+  // Structure of a WAV header
+  struct wav_header {
+    using word = unsigned int;
+    word riff_id;
+    word riff_size;
+    word wave_tag;
+    word format_id;
+    word format_size;
+    word format_tag : 16;
+    word channels : 16;
+    word sample_rate;
+    word bytes_per_second;
+    word block_align : 16;
+    word bit_depth : 16;
+    word data_id;
+    word data_size;
+  } header;
 
   // Check if audio file passed as a param or use default
   const std::string audio_file =
@@ -39,11 +37,13 @@ int main(int argc, char **argv) {
 
     // Read a block of samples to analyse
     std::vector<short> samples(8000);
-    audio.read(reinterpret_cast<char *>(samples.data()),
-               samples.size() * sizeof(short));
+    const long data_size =
+        static_cast<long>(samples.size()) *
+        static_cast<long>(sizeof(decltype(samples)::value_type));
+    audio.read(reinterpret_cast<char *>(samples.data()), data_size);
 
     // Analyse samples
-    const auto &dft = dft::calculate(std::cbegin(samples), std::cend(samples));
+    const auto &dft = dft::calculate(samples.cbegin(), samples.cend());
 
     // Construct a new base filename for all output files
     const std::string basename{audio_file.substr(0, audio_file.find('.'))};
