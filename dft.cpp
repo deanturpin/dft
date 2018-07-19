@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
               std::ostream_iterator<double>(csv_file, "\n"));
 
     // Dump gnuplot config
-    const std::string output_filetype{"png"};
+    const std::string output_filetype = "png";
     std::ofstream gnuplot_file(basename + ".gnuplot");
     gnuplot_file << "set terminal " << output_filetype << " size 2000,1500\n"
                  << "set title \"" << basename << "\"\n"
@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
             .c_str());
 
     // Call plotter
-    const std::string command{"/usr/bin/gnuplot " + basename + ".gnuplot"};
+    const std::string command = "/usr/bin/gnuplot " + basename + ".gnuplot";
     return system(command.c_str());
   }
 
