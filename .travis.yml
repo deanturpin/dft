@@ -35,3 +35,4 @@ matrix:
             - g++-8
             - cppcheck
             - gnuplot
+            - gcov-8
