@@ -10,7 +10,7 @@ script:
   - bash <(curl -s https://codecov.io/bash)
 
   # Main gcc build
-  - make CXX=g++-6 clean all
+  - make CXX=g++-8 clean all
   - cppcheck --enable=all .
 
 # Deploy to GitHub pages
@@ -32,6 +32,6 @@ matrix:
             - llvm-toolchain-trusty-6.0
           packages:
             - clang++-6.0
-            - g++-6
+            - g++-8
             - cppcheck
             - gnuplot
