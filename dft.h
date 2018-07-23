@@ -35,8 +35,8 @@ auto calculate(const Iterator begin, const Iterator end) {
   std::vector<double> dft;
 
   // For each Fourier bin we need to iterate over each sample - O(n^2) - but we
-  // will return only half as many bins as samples - the upper half is a mirror
-  // image of the lower, i.e., redundant.
+  // will return only half as many bins as samples. The upper half is just a
+  // mirror image of the lower.
   const double total_samples = std::distance(begin, end);
 
   // The "twiddle matrix" is usually generated up front but as we're performing
