@@ -29,8 +29,7 @@ int main(int argc, char **argv) {
       (argc > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
 
   // Check audio file is good
-  std::ifstream audio(audio_file);
-  if (audio.good()) {
+  if (std::ifstream audio(audio_file); audio.good()) {
 
     // Read WAV header
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
@@ -50,7 +49,7 @@ int main(int argc, char **argv) {
 
     // Dump the DFT results for plotting
     std::ofstream csv_file(basename + ".csv");
-    std::copy(std::cbegin(dft), std::cend(dft),
+    std::copy(dft.cbegin(), dft.cend(),
               std::ostream_iterator<double>(csv_file, "\n"));
 
     // Dump gnuplot config
