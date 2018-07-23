@@ -23,6 +23,9 @@
 
 namespace dft {
 
+	template<class T>
+	constexpr T pi = T(3.1415926535897932385);
+
 template <typename Iterator>
 auto calculate(const Iterator begin, const Iterator end) {
 
@@ -45,7 +48,7 @@ auto calculate(const Iterator begin, const Iterator end) {
     // Definition of our Fourier function
     const auto sinusoidal =
         [ n = 0.0, &total_samples, &k ](const auto &sample) mutable {
-      return exp(2i * M_PI * k * n++ / total_samples) * double(sample);
+      return exp(2i * pi<double> * k * n++ / total_samples) * double(sample);
     };
 
     // Iterate over all samples for the current bin index (k), calculate the
