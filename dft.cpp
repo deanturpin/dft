@@ -48,42 +48,36 @@ int main(int argc, char **argv) {
     const std::string basename{audio_file.substr(0, audio_file.find('.'))};
 
     // Dump the DFT results for plotting
-    std::ofstream csv_file(basename + ".csv");
-    std::copy(dft.cbegin(), dft.cend(),
-              std::ostream_iterator<double>(csv_file, "\n"));
+    if (std::ofstream csv_file(basename + ".csv"); csv_file.good())
+      std::copy(dft.cbegin(), dft.cend(),
+                std::ostream_iterator<double>(csv_file, "\n"));
 
     // Dump gnuplot config
     const std::string output_filetype = "png";
-    std::ofstream gnuplot_file(basename + ".gnuplot");
-    gnuplot_file << "set terminal " << output_filetype << " size 2000,1500\n"
-                 << "set title \"" << basename << "\"\n"
-                 << "set output \"" << basename + "." + output_filetype
-                 << "\"\n"
-                 << "set format y \"\"\n"
-                 << "set xtics 10\n"
-                 << "set xtics rotate\n"
-                 << "set xlabel \"Hz\"\n"
-                 << "set grid xtics ytics\n"
-                 << "set tics font \"Helvetica,3\"\n"
-                 << "set logscale y\n"
-                 << "plot \"" << basename + ".csv\" notitle\n";
-
-    // Close (and flush) files
-    csv_file.close();
-    gnuplot_file.close();
+    if (std::ofstream gnuplot_file(basename + ".gnuplot"); gnuplot_file.good())
+      gnuplot_file << "set terminal " << output_filetype << " size 2000,1500\n"
+                   << "set title \"" << basename << "\"\n"
+                   << "set output \"" << basename + "." + output_filetype
+                   << "\"\n"
+                   << "set format y \"\"\n"
+                   << "set xtics 10\n"
+                   << "set xtics rotate\n"
+                   << "set xlabel \"Hz\"\n"
+                   << "set grid xtics ytics\n"
+                   << "set tics font \"Helvetica,3\"\n"
+                   << "set logscale y\n"
+                   << "plot \"" << basename + ".csv\" notitle\n";
 
     // Report index of highest peak and current input file name
-    std::puts(
-        (std::to_string(std::distance(std::cbegin(dft),
-                                      (std::max_element(std::cbegin(dft),
-                                                        std::cend(dft)))) +
-                        1) +
-         " Hz\t" + audio_file)
-            .c_str());
+    std::puts((std::to_string(
+                   std::distance(dft.cbegin(),
+                                 (std::max_element(dft.cbegin(), dft.cend()))) +
+                   1) +
+               " Hz\t" + audio_file)
+                  .c_str());
 
     // Call plotter
-    const std::string command = "/usr/bin/gnuplot " + basename + ".gnuplot";
-    return system(command.c_str());
+    return system(("/usr/bin/gnuplot " + basename + ".gnuplot").c_str());
   }
 
   return 0;
