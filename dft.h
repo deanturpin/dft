@@ -23,20 +23,17 @@
 
 namespace dft {
 
-	template<class T>
-	constexpr T pi = T(3.1415926535897932385);
+template <class T> constexpr T pi = T(3.1415926535897932385);
 
 template <typename Iterator>
 auto calculate(const Iterator begin, const Iterator end) {
-
-  using namespace std::complex_literals;
 
   // This routine will return the results as a container of frequency bins.
   std::vector<double> dft;
 
   // For each Fourier bin we need to iterate over each sample - O(n^2) - but we
-  // will return only half as many bins as samples. The upper half is just a
-  // mirror image of the lower.
+  // will return only half as many bins as samples. The upper half is a mirror
+  // image of the lower.
   const double total_samples = std::distance(begin, end);
 
   // The "twiddle matrix" is usually generated up front but as we're performing
@@ -45,15 +42,16 @@ auto calculate(const Iterator begin, const Iterator end) {
   // counter is used to avoid a cast in the subsequent calculation.
   for (double k = 0.0; k < total_samples / 2; ++k) {
 
-    // Definition of our Fourier function
+    // Definition of our Fourier function. Note the sample index (n) is
+    // incremented during the calculation.
     const auto sinusoidal =
-        [ n = 0.0, &total_samples, &k ](const auto &sample) mutable {
+        [&total_samples, n = 0.0, &k ](const auto &sample) mutable {
+      using namespace std::complex_literals;
       return exp(2i * pi<double> * k * n++ / total_samples) * double(sample);
     };
 
-    // Iterate over all samples for the current bin index (k), calculate the
-    // response and store the result. Note the sample index (n) is incremented
-    // during the calculation. See the Wikipedia link above for the details of
+    // Iterate over all samples passed to this routine, calculate the response
+    // and store the result. See the Wikipedia link above for the details of
     // the algorithm.
     std::vector<std::complex<double>> fou;
     std::transform(begin, end, std::back_inserter(fou), sinusoidal);
