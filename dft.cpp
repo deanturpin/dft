@@ -25,11 +25,11 @@ int main(int argc, char **argv) {
   } header;
 
   // Check if audio file passed as a param or use default
-  const std::string audio_file =
-      (argc > 1 ? argv[1] : "wav/didgeridoo_big_tony_drone.wav");
+  const std::string audio_file{argc > 1 ? argv[1]
+                                        : "wav/didgeridoo_big_tony_drone.wav"};
 
   // Check audio file is good
-  if (std::ifstream audio(audio_file); audio.good()) {
+  if (std::ifstream audio{audio_file}; audio.good()) {
 
     // Read WAV header
     audio.read(reinterpret_cast<char *>(&header), sizeof header);
@@ -48,13 +48,13 @@ int main(int argc, char **argv) {
     const std::string basename{audio_file.substr(0, audio_file.find('.'))};
 
     // Dump the DFT results for plotting
-    if (std::ofstream csv_file(basename + ".csv"); csv_file.good())
+    if (std::ofstream csv_file{basename + ".csv"}; csv_file.good())
       std::copy(dft.cbegin(), dft.cend(),
                 std::ostream_iterator<double>(csv_file, "\n"));
 
     // Dump gnuplot config
-    const std::string output_filetype = "png";
-    if (std::ofstream gnuplot_file(basename + ".gnuplot"); gnuplot_file.good())
+    const std::string output_filetype{"png"};
+    if (std::ofstream gnuplot_file{basename + ".gnuplot"}; gnuplot_file.good())
       gnuplot_file << "set terminal " << output_filetype << " size 2000,1500\n"
                    << "set title \"" << basename << "\"\n"
                    << "set output \"" << basename + "." + output_filetype
