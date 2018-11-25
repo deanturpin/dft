@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Tue 24 Jul 08:39:57 BST 2018
+Sun 25 Nov 17:45:27 BST 2018
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -32,13 +32,14 @@ template <class T> constexpr T pi = T(3.1415926535897932385);
 template <typename Iterator>
 auto calculate(const Iterator begin, const Iterator end) {
 
-  // This routine will return the results as a container of frequency bins.
-  std::vector<double> dft;
-
   // For each Fourier bin we need to iterate over each sample - O(n^2) - but we
   // will return only half as many bins as samples. The upper half is a mirror
   // image of the lower.
   const double total_samples = std::distance(begin, end);
+
+  // This routine will return the results as a container of frequency bins.
+  std::vector<double> dft;
+  dft.reserve(total_samples / 2);
 
   // The "twiddle matrix" is usually generated up front but as we're performing
   // a one-shot calculation it can be refactored into a single loop. Normally
@@ -62,7 +63,7 @@ auto calculate(const Iterator begin, const Iterator end) {
 
     // Store the absolute sum of all responses for this frequency bin and scale
     // it by the window size (number of samples).
-    dft.push_back(std::abs(std::accumulate(std::cbegin(fou), std::cend(fou),
+    dft.emplace_back(std::abs(std::accumulate(std::cbegin(fou), std::cend(fou),
                                            std::complex<double>{}) /
                            total_samples));
   }
