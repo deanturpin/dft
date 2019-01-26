@@ -6,13 +6,13 @@
 ```
 1       82.41   E2	fundamental
 2       164.82  E3	octave
-3       247.23  B3  fifth
+3       247.23  B3	fifth
 4       329.64  E4	octave
-5       412.05  G#4 major third
+5       412.05  G#4	major third
 6       494.46  B4	fifth
 7       576.87  D5	seventh
 8       659.28  E5	octave
-9       741.69  F#5 second
+9       741.69  F#5	second
 10      824.1   G#5	major third
 11      906.51  A5	fourth
 12      988.92  B5	fifth
