@@ -1,0 +1,41 @@
+language: cpp
+script:
+  # clang build
+  - make CXX=clang++-6.0 dft.o
+
+  # gcc build with coverage and profiler (no optimisation)
+  - make CXX=g++-7 DEBUG='-g -pg --coverage' clean dft.o
+  - ./dft.o && gprof dft.o
+
+  # Generate and upload coverage
+  - gcov --version
+  - bash <(curl -s https://codecov.io/bash)
+
+  # Main gcc build
+  - make CXX=g++-8 clean all
+  - cppcheck --enable=all .
+
+# Deploy to GitHub pages
+deploy:
+  provider: pages
+  github-token: ${api_key}
+  skip-cleanup: true
+  on:
+    branch: master
+
+# Linux build with gcc and clang
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          update: true
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-6.0
+          packages:
+            - clang++-6.0
+            - g++-7
+            - g++-8
+            - cppcheck
+            - gnuplot
