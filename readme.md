@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Sun 25 Nov 17:45:27 BST 2018
+Sat 26 Jan 16:07:31 BST 2019
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -49,8 +49,8 @@ auto calculate(const Iterator begin, const Iterator end) {
 
     // Definition of our Fourier function. Note the sample index (n) is
     // incremented during the calculation.
-    const auto sinusoidal =
-        [&total_samples, n = 0.0, &k ](const auto &sample) mutable {
+    const auto sinusoidal = [&total_samples, n = 0.0,
+                             &k](const auto &sample) mutable {
       using namespace std::complex_literals;
       return exp(2i * pi<double> * k * n++ / total_samples) * double(sample);
     };
@@ -64,13 +64,13 @@ auto calculate(const Iterator begin, const Iterator end) {
     // Store the absolute sum of all responses for this frequency bin and scale
     // it by the window size (number of samples).
     dft.emplace_back(std::abs(std::accumulate(std::cbegin(fou), std::cend(fou),
-                                           std::complex<double>{}) /
-                           total_samples));
+                                              std::complex<double>{}) /
+                              total_samples));
   }
 
   return dft;
 }
-}
+} // namespace dft
 #endif
 ```
 # BAMBOO DRONE

@@ -3,6 +3,7 @@
 #include <iterator>
 #include <string>
 #include <vector>
+#include <iostream>
 
 int main(int argc, char **argv) {
 
@@ -69,12 +70,10 @@ int main(int argc, char **argv) {
                    << "plot \"" << basename + ".csv\" notitle\n";
 
     // Report index of highest peak and current input file name
-    std::puts((std::to_string(
-                   std::distance(dft.cbegin(),
+    
+    std::cout << std::distance(dft.cbegin(),
                                  (std::max_element(dft.cbegin(), dft.cend()))) +
-                   1) +
-               " Hz\t" + audio_file)
-                  .c_str());
+                   1 << " Hz\t" + audio_file + '\n';
 
     // Call plotter
     return system(("/usr/bin/gnuplot " + basename + ".gnuplot").c_str());
