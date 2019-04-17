@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Wed 17 Apr 21:40:55 BST 2019
+Wed 17 Apr 21:48:55 BST 2019
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -58,6 +58,8 @@ auto calculate(const Iterator begin, const Iterator end) {
     // and store the result. See the Wikipedia link above for the details of
     // the algorithm.
     std::vector<std::complex<double>> fou;
+    fou.reserve(total_samples);
+
     std::transform(begin, end, std::back_inserter(fou), sinusoidal);
 
     // Store the absolute sum of all responses for this frequency bin and scale
