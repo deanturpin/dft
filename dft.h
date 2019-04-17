@@ -45,8 +45,7 @@ auto calculate(const Iterator begin, const Iterator end) {
 
     // Definition of our Fourier function. Note the sample index (n) is
     // incremented during the calculation.
-    const auto sinusoidal = [&total_samples, n = 0.0,
-                             &k](const auto &sample) mutable {
+    const auto sinusoidal = [&, n = 0.0](const auto &sample) mutable {
       using namespace std::complex_literals;
       return exp(2i * pi<double> * k * n++ / total_samples) * double(sample);
     };

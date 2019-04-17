@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Sat 26 Jan 16:07:31 BST 2019
+Wed 17 Apr 21:40:55 BST 2019
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -49,8 +49,7 @@ auto calculate(const Iterator begin, const Iterator end) {
 
     // Definition of our Fourier function. Note the sample index (n) is
     // incremented during the calculation.
-    const auto sinusoidal = [&total_samples, n = 0.0,
-                             &k](const auto &sample) mutable {
+    const auto sinusoidal = [&, n = 0.0](const auto &sample) mutable {
       using namespace std::complex_literals;
       return exp(2i * pi<double> * k * n++ / total_samples) * double(sample);
     };
