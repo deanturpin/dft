@@ -7,10 +7,10 @@
 #include <vector>
 
 // DFT is a header-only discrete Fourier transform implementation written in
-// C++14. Libraries often use optimisations that restrict dimensions of the
-// sample array (power of two) but without these limitations we can explore the
-// algorithm and apply it where we couldn't use a "fast" implementation. It was
-// originally written to study the characteristic spectral response of my
+// Modern C++. Libraries often use optimisations that restrict dimensions of
+// the sample array (power of two) but without these limitations we can explore
+// the algorithm and apply it where we couldn't use a "fast" implementation. It
+// was originally written to study the characteristic spectral response of my
 // various musical instruments but it can be applied in other domains. The
 // calculate() routine takes a pair of STL container iterators and returns the
 // Fourier transform as a vector of bins. We could consider parallelising the
