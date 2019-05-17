@@ -1,0 +1,30 @@
+
+```{r}
+library("seewave")
+library("tuneR")
+
+summaryAndPlot = function(x){
+  # summary(x)
+  spectro(x)
+}
+
+summaryAndPlot(readWave("bamboo_drone.wav"))
+summaryAndPlot(readWave("didgeridoo_big_tony_drone.wav"))
+summaryAndPlot(readWave("didgeridoo_big_tony_toot.wav"))
+summaryAndPlot(readWave("glass1.wav"))
+summaryAndPlot(readWave("glass2.wav"))
+summaryAndPlot(readWave("glass3.wav"))
+summaryAndPlot(readWave("glass4.wav"))
+summaryAndPlot(readWave("glass5.wav"))
+summaryAndPlot(readWave("hobgoblin_didge_8000.wav"))
+summaryAndPlot(readWave("JF_fibreglass_slide.wav"))
+summaryAndPlot(readWave("KP_guest.wav"))
+summaryAndPlot(readWave("pianoBb2.wav"))
+summaryAndPlot(readWave("singing_bowl1.wav"))
+summaryAndPlot(readWave("singing_bowl2.wav"))
+summaryAndPlot(readWave("singing_bowl3.wav"))
+summaryAndPlot(readWave("singing_bowl5.wav"))
+summaryAndPlot(readWave("synthesised_chord.wav"))
+summaryAndPlot(readWave("synthesised_chord_whole_freqs.wav"))
+summaryAndPlot(readWave("synthesised_overtones.wav"))
+```
