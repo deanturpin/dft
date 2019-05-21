@@ -3,8 +3,9 @@
 library("seewave")
 library("tuneR")
 
-summaryAndPlot = function(x){
-  # summary(x)
+summaryAndPlot = function(name){
+  x = readWave(input=name)
+  summary(x)
   spectro(x)
 }
 
