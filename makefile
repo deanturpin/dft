@@ -1,10 +1,9 @@
-CXX = g++-8
-DEBUG = -O1
-CCFLAGS = --std=c++2a --all-warnings --extra-warnings \
-	 -Wshadow -Wfloat-equal -Weffc++ -Wdelete-non-virtual-dtor
+CXX ?= g++-8
+CXXFLAGS ?= --std=c++2a --all-warnings --extra-warnings \
+	 -Wshadow -Wfloat-equal -Weffc++ -Wdelete-non-virtual-dtor -O1
 
 %.o: %.cpp
-	$(CXX) -o $@ $< $(CCFLAGS) $(DEBUG)
+	$(CXX) -o $@ $< $(CXXFLAGS)
 
 all:
 	$(MAKE) dft.o
