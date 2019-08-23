@@ -1,9 +1,9 @@
-CXX ?= g++-8
+CXX ?= g++-9
 CXXFLAGS ?= --std=c++2a --all-warnings --extra-warnings \
 	 -Wshadow -Wfloat-equal -Weffc++ -Wdelete-non-virtual-dtor -O1
 
 %.o: %.cpp
-	$(CXX) -o $@ $< $(CXXFLAGS)
+	$(CXX) $(CXXFLAGS) -o $@ $< 
 
 all:
 	$(MAKE) dft.o
