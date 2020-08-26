@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Wed 26 Aug 2020 07:33:02 AM BST
+Wed 26 Aug 2020 07:49:23 AM BST
 ```cpp
 #ifndef DFT_H
 #define DFT_H
@@ -168,4 +168,3 @@ Listen to the [audio](wav/synthesised_chord_whole_freqs.wav).
 # SYNTHESISED OVERTONES
 [![](wav/synthesised_overtones.png)](wav/synthesised_overtones.png)
 Listen to the [audio](wav/synthesised_overtones.wav).
-
