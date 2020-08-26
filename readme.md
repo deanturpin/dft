@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/deanturpin/dft.svg?branch=master)](https://travis-ci.org/deanturpin/dft)
 [![codecov](https://codecov.io/gh/deanturpin/dft/branch/master/graph/badge.svg)](https://codecov.io/gh/deanturpin/dft)
-Fri 23 Aug 11:03:54 BST 2019
+Wed 26 Aug 2020 07:33:02 AM BST
 ```cpp
 #ifndef DFT_H
 #define DFT_H
